@@ -1,0 +1,167 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/"><img src="{% static 'images/FoodIcon.png' %}" height="50px" width="50px" alt=""></a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">FOODIE~CORNER<span class="sr-only">(current)</span></a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="contact/">CONTACT</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="about/">ABOUT</a>
+          </li>
+
+        <!-- <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li> -->
+        <li class="nav-item">
+          <a class="nav-link disabled" style="color:wheat;" href="#" tabindex="-1" aria-disabled="true">
+              EAT HEALTHY😋</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">SEARCH</button>
+      </form>
+
+      {% if user.is_authenticated %}
+        <!-- LOGOUT -->
+
+        <div style="margin-left: 10px;"></div>
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-info dropdown-toggle" id="logout_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{request.user.username}}
+            </button>
+            <div class="dropdown-menu">
+            <a class="dropdown-item" href="/">View Profile</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="logout/">LOGOUT</a>
+            </div>
+        </div>
+
+        <div style="margin-left: 10px;"></div>
+        <img src="{% static 'images/broccoli.png' %}" alt="" width="40px" height="40px">
+      {% else %}    
+
+        <div style="margin-left: 10px;"></div>
+
+        <!-- login   -->
+        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">
+            LOGIN
+        </button>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" style="color: rgb(65, 65, 204);letter-spacing:2px; margin-left:143px;" id="exampleModalLabel">LOGIN HERE!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <form action="login/" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                          <label for="username">Username</label>
+                          <input type="text" class="form-control" name="username" id="username" required>
+                          <small class="form-text text-muted">We'll never share your username with anyone else.</small>
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Password</label>
+                          <input type="password" name="password" class="form-control" id="exampleInputPassword1" required>
+                        </div>
+                        <button type="submit" class="btn btn-success" style="margin-left:33%; width:30%;">LOGIN</button>
+                      </form>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div style="margin-left: 10px;"></div>
+
+        <!-- signup -->
+        <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#staticBackdrop">
+            SIGNUP
+        </button>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel" style="color: rgb(29, 119, 29);letter-spacing:2px; margin-left:143px;">SIGNUP HERE!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <form action="signup/" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="fname">First Name</label>
+                            <input type="text" class="form-control" name="fname" id="fname" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lname">Last Name</label>
+                            <input type="text" class="form-control" name="lname" id="lname" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Email address</label>
+                          <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" name="username" id="username" required>
+                            <small class="form-text text-muted">We'll never share your username with anyone else.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" class="form-control" id="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm">Password Confirmation</label>
+                            <input type="password" name="confirm" class="form-control" id="confirm" required>
+                        </div>
+                        <button type="submit" class="btn btn-danger" style="margin-left:33%; width:30%;">SIGNUP</button>
+                      </form>
+                </div>
+            </div>
+            </div>
+        </div>
+
+      {% endif %}
+    </div>
+</nav>
+
+<!-- messages display -->
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert" style="text-align: center;">
+            <strong style="text-align: center; letter-spacing:5px">{{message|title}}</strong>!!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+{% endif %}

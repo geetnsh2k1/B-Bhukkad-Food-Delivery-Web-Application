@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>{{customer.user.username|upper}} ~ Account</title>
+{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/account.css' %}">
+{% endblock css %}
+
+{% block content %}
+    <div class="center">
+        <div id="header" style="filter: blur(0px); height: 150px; transform: scale(1, 1);"></div>
+        <div id="profile">
+            <div >
+                <img class="image" src="{{customer.picture.url}}" alt="">
+            </div>
+            <div class="name">
+                {{customer.user.first_name|upper}} {{customer.user.last_name|upper}}
+            </div>
+            <div class="nickname">
+                @{{customer.user.username|lower}}
+            </div>
+            <div class="location">
+                <img src="{% static 'images/location.jpg' %}" height="20px" width="20px" class="material-icons">
+                {% if customer.address %}
+                    <div id="address_data">
+                        <span style="font-family: 'Syne Mono', monospace;
+                        font-size:smaller" id="">{{customer.address}}</span>
+                        <button class="" id="update">Change</button>
+                    </div>
+                {% else %}
+                    <form action="addaddress/" method="POST">
+                        {% csrf_token %}
+                        <input type="text" name="address" id="" class="ip" placeholder="" required>
+                        <button type="submit" class="btn"><img src="{% static 'images/add.png' %}" alt="" height="30px" width="30px"></button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block script %}
+    <script>
+
+        //my js
+        $("#update").click(function(){
+            $("#address_data")[0].innerHTML="<form action='updateaddress/' method='post'><input type='text' name='newaddress' id=''><button type='submit'>Submit</button></form>"
+        })
+
+        const header = document.getElementById('header');
+
+        window.addEventListener('mousewheel', event => {
+        let delta = (event.wheelDelta + 3) * -1;
+        animate(delta > 0, delta);
+        });
+
+        const animate = (check, delta) => {
+        const MIN_HEIGHT = 80;
+        const HEIGHT = 150;
+        const MAX_ZOOM = 3;
+        const MAX_BLUR = 3;
+        if (check) {
+            let blur = 1 + delta / 150 < MAX_BLUR ? Math.ceil(1 + delta / 150) : MAX_BLUR;
+            let height = HEIGHT - delta / 10 > MIN_HEIGHT ? Math.ceil(HEIGHT - delta / 10) : MIN_HEIGHT;
+            let zoom = 1 + delta / 200 <= MAX_ZOOM ? 1 + delta / 200 : MAX_ZOOM;
+            requestAnimationFrame(transform(header, blur, height, zoom));
+        } else
+        requestAnimationFrame(transform(header, 0, 150, 1));
+        };
+
+        const transform = (element, blur, height, zoom) => {
+        element.style.filter = `blur(${blur}px)`;
+        element.style.height = `${height}px`;
+        element.style.transform = `scale(${zoom},${zoom})`;
+        };
+
+
+    </script>
+{% endblock script %}

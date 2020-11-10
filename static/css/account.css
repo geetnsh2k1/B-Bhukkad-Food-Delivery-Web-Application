@@ -1,0 +1,96 @@
+body{
+    min-height: 100vh;
+    min-width: 100vw;
+    background: -webkit-gradient(linear, left top, right bottom, from(rgba(0, 0, 255, 0.5)), to(rgba(0, 128, 0, 0.5))), url(http://i.imgur.com/woUbg3p.jpg);
+    background: linear-gradient(to right bottom, rgba(0, 0, 255, 0.5), rgba(0, 128, 0, 0.5)), url(http://i.imgur.com/woUbg3p.jpg);
+    background-size: cover;
+    background-position: center center;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+#header {
+    width: 50vw;
+    max-width: 400px;
+    min-width: 300px;
+    height: 150px;
+    background: url(http://i.imgur.com/woUbg3p.jpg);
+    background-size: cover;
+    background-position: center center;
+    -webkit-transition: all .08s linear;
+    transition: all .08s linear;
+}
+
+#profile {
+    width: 50vw;
+    max-width: 400px;
+    min-width: 300px;
+    height: 260px;
+    background: white;
+    position: relative;
+    box-sizing: border-box;
+    padding-top: 40px;
+    padding-left: 25px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.image {
+    position: absolute;
+    border: 3px solid white;
+    top: -55px;
+    left: 20px;
+    height: 80px;
+    width: 80px;
+    border-radius: 10px;
+}
+
+.name{
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: #444;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.nickname {
+    color: #888;
+    font-size: 0.9rem;
+    padding-bottom: 7px;
+    font-family: 'Architects Daughter', cursive;
+}
+
+.location {
+    color: #555;
+    font-size: 0.9rem;
+    padding-left: 0px;
+    position: relative;
+    left: -5px;
+}
+
+#profile .location .material-icons {
+    position: relative;
+    top: 3px;
+    font-size: 1rem;
+
+}
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+}
+
+.ip{
+    
+}

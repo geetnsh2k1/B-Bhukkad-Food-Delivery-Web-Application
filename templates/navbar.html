@@ -47,14 +47,25 @@
         <div style="margin-left: 10px;"></div>
 
         <div class="btn-group">
-            <button type="button" class="btn btn-info dropdown-toggle" id="logout_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{request.user.username}}
+            <button type="button" class="btn btn-info dropdown-toggle" id="logout_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-left: 30px;
+            padding-right: 30px;
+            letter-spacing: 4px;">
+                {{request.user.username}} <sup style="color: red; font-size: 16px;
+                font-weight: bolder;">{{count}}</sup>
             </button>
+            
             <div class="dropdown-menu">
-            <a class="dropdown-item" href="/">View Profile</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="logout/">LOGOUT</a>
-            </div>
+              <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center" style="border:none">
+                  <a class="dropdown-item" href="viewprofile/">Profile</a>
+                  <span class="badge badge-primary badge-pill">{{count}}</span>
+                </li>
+                <div class="dropdown-divider"></div>
+                <li class="list-group-item d-flex justify-content-between align-items-center" style="border:none">
+                  <a class="dropdown-item" href="logout/">LOGOUT</a>
+                </li>
+              </ul>
+          </div>
         </div>
 
         <div style="margin-left: 10px;"></div>

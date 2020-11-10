@@ -7,6 +7,29 @@ from home.models import Customer
 
 # Create your views here.
 def home(request):
+    try:
+        if request.user.is_authenticated:
+            username = request.user.username
+            user = User.objects.get(username=username)
+
+            customer = Customer.objects.get(user=user)
+
+            count = 0
+
+            if customer.phone == None or customer.phone == "":
+                count+=1
+            else:
+                pass
+            if customer.address == None or customer.address == "":
+                count += 1
+            else:
+                pass
+
+            return render(request, 'home.html', {'count':count})
+        else:
+            pass
+    except Exception as e:
+        print(e, 'error')
     return render(request, 'home.html')
 
 def handlelogin(request):
@@ -65,3 +88,58 @@ def handlesignup(request):
     else:
         pass
     return redirect('home')
+
+def viewprofile(request):
+    try:
+        username = request.user.username
+        user = User.objects.get(username=username)
+        customer = Customer.objects.get(user=user) 
+        count = 0
+        if customer.phone == None or customer.phone == "":
+            count += 1
+        if customer.address == None or customer.address == "":
+            count += 1
+        return render(request, 'profile.html', {'customer':customer, 'count':count})
+    except Exception as e:
+        print(e)
+        messages.error(request, 'error while loading your profile')
+        return redirect('home')
+
+def account(request):
+    try:
+        username = request.user.username
+        user = User.objects.get(username=username)
+        customer = Customer.objects.get(user=user) 
+        return render(request, 'account.html', {'customer':customer})
+    except Exception as e:
+        print(e)
+        messages.error(request, 'error while loading your profile')
+        return redirect('home')
+    
+def addadress(request):
+    if request.method == "POST":
+        address = request.POST['address']
+        username = request.user.username
+        user = User.objects.get(username=username)
+        customer = Customer.objects.get(user=user)
+        customer.address = address
+        customer.save()
+        print('hi, it;s working')
+    else:
+        pass
+    return redirect('account')
+
+def updateaddress(request):
+    if request.method == "POST":
+        try:
+            newaddress = request.POST['newaddress']
+            username = request.user.username
+            user = User.objects.get(username=username)
+            customer = Customer.objects.get(user=user)
+            customer.address = newaddress
+            customer.save()
+        except:
+            pass
+    else:
+        pass
+    return redirect('account')

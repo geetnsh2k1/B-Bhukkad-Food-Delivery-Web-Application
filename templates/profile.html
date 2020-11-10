@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    <title>{{customer.user.username|upper}} ~ Profile</title>
+{% endblock title %}
+
+{% block css %}
+    
+{% endblock css %}
+
+{% block content %}
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/"><img src="{% static 'images/FoodIcon.png' %}" alt="foodicon" width="55px" height="55px" style="margin-left:20px"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <!-- <li class="nav-item active">
+          <a class="nav-link" href="/" style="letter-spacing: 2px;font-family: 'Nunito', sans-serif; font-size:25px">Home <span class="sr-only">(current)</span></a>
+        </li> -->
+
+        {% if request.user.is_superuser %}
+            <span style="font-family: 'Bebas Neue', cursive; font-size:40px; letter-spacing:10px; padding-left:20px;color:rgb(90, 87, 87)">Welcome, Owner 😎</span>
+        {% else %}
+            <span style="font-family: 'Bebas Neue', cursive; font-size:40px; letter-spacing:10px; padding-left:20px;color:rgb(90, 87, 87)">Welcome, Customer 🤗</span>
+        {% endif %}
+
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+
+        <div style="margin-left: 10px;"></div>  
+      
+        <img src="{{customer.picture.url}}" alt="" height="55px" width="55px" style="border: 1px transparent solid; border-radius:4px">
+
+        <div style="margin-left: 10px;"></div>
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                <span style="letter-spacing: 2px;font-family: 'Nunito', sans-serif; font-size:larger">{{request.user.first_name}} {{request.user.last_name}}</span>
+                  {% if count == 0 %}
+                  {% else %}
+                  <sup class="badge badge-danger badge-pill" style="margin-left: 5px;">{{count}}</sup>
+                  {% endif %}
+            </button>
+            <div class="dropdown-menu dropdown-menu-lg-right">
+              <button class="dropdown-item" type="button" disabled>
+                <div class="media">
+                    <img src="{{customer.picture.url}}" class="mr-3" alt="{% static 'images/default.png' %}" width="70px" height="70px" style="border: 1px transparent solid; border-radius:4px">
+                    <div class="media-body">
+                      <h5 class="mt-0" style="letter-spacing: 2px;font-family: 'Nunito', sans-serif; font-size:25px; text-align:center">{{request.user.first_name}} {{request.user.last_name}}</h5>
+                       <a class="nav-link disabled" href="" aria-disabled="true" style="text-align: center;">{{request.user.email}}</a>
+                    </div>
+                  </div>
+              </button>
+            
+              <div class="dropdown-divider"></div>
+              
+              <button class="dropdown-item" type="button">
+                <aside>
+                    <img src="{% static 'images/account.png' %}" alt="" height="20px" width="20px" style="float:left; margin-top:4px">
+                </aside>
+                <a href="account/" style="letter-spacing: 2px;font-family: 'Nunito', sans-serif; font-size:20px; text-align:center; margin-left:16px;text-decoration:none;">Account</a>
+                {% if count == 0 %}
+                {% else %}
+                  <sup class="badge badge-primary badge-pill">{{count}}</sup>
+                {% endif %}
+              </button>
+              
+              <div class="dropdown-divider"></div>
+              
+              <button class="dropdown-item" type="button">
+                  <aside>
+                      <img src="{% static 'images/logout.png' %}" alt="" height="20px" width="20px" style="float:left; margin-top:4px">
+                  </aside>
+                  <a href="" style="letter-spacing: 2px;font-family: 'Nunito', sans-serif; font-size:20px; text-align:center; margin-left:16px;text-decoration:none;">Logout</a>
+              </button>
+            
+            </div>
+        </div>
+
+    </div>
+  </nav>
+
+{% endblock content %}
+
+{% block script %}
+
+{% endblock script %}

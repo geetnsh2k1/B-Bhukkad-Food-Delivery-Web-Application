@@ -29,7 +29,7 @@ body{
     width: 50vw;
     max-width: 400px;
     min-width: 300px;
-    height: 260px;
+    height: 250px;
     background: white;
     position: relative;
     box-sizing: border-box;
@@ -48,6 +48,7 @@ body{
     border-radius: 10px;
 }
 
+
 .name{
     font-size: 1.3rem;
     font-weight: 500;
@@ -65,16 +66,31 @@ body{
 .location {
     color: #555;
     font-size: 0.9rem;
+    padding-left: 10px;
+    position: relative;
+    left: -5px;
+}
+
+.phone {
+    color: #555;
+    font-size: 0.9rem;
     padding-left: 0px;
     position: relative;
     left: -5px;
+}
+
+#profile .phone .material-icons {
+    position: relative;
+    top: 3px;
+    font-size: 1rem;
+
 }
 
 #profile .location .material-icons {
     position: relative;
     top: 3px;
     font-size: 1rem;
-
+    left: -14px;
 }
 .material-icons {
     font-family: 'Material Icons';
@@ -89,8 +105,4 @@ body{
     word-wrap: normal;
     direction: ltr;
     -webkit-font-smoothing: antialiased;
-}
-
-.ip{
-    
 }

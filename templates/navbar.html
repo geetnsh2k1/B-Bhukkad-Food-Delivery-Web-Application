@@ -9,15 +9,15 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="/">FOODIE~CORNER<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/" style="font-family: 'Yanone Kaffeesatz', sans-serif; font-size:24px;letter-spacing:2px; color:gold;padding-top:15px;">F<span style="color:red;">OO</span>DIE C<span style="color:red;">O</span>RNER<span class="sr-only">(current)</span></a>
         </li>
         
         <li class="nav-item">
-          <a class="nav-link" href="contact/">CONTACT</a>
+          <a class="nav-link" href="contact/" style="font-family: 'Yanone Kaffeesatz', sans-serif;font-size:24px;letter-spacing:2px;padding-top:15px;">CONTACT</a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="about/">ABOUT</a>
+            <a class="nav-link" href="about/" style="font-family: 'Yanone Kaffeesatz', sans-serif;font-size:24px;letter-spacing:2px;padding-top:15px;">ABOUT</a>
           </li>
 
         <!-- <li class="nav-item dropdown">
@@ -32,13 +32,12 @@
           </div>
         </li> -->
         <li class="nav-item">
-          <a class="nav-link disabled" style="color:wheat;" href="#" tabindex="-1" aria-disabled="true">
-              EAT HEALTHY😋</a>
+          <p style="font-family: 'Yanone Kaffeesatz', sans-serif;font-size:24px;letter-spacing:2px;color:wheat;padding-top:15px;padding-left:10px;">EAT HEALTHY😋</p>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">SEARCH</button>
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="font-family: 'Yanone Kaffeesatz', sans-serif;font-size:24px;letter-spacing:2px;">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="font-family: 'Yanone Kaffeesatz', sans-serif;font-size:24px;letter-spacing:2px;">SEARCH</button>
       </form>
 
       {% if user.is_authenticated %}
@@ -47,35 +46,39 @@
         <div style="margin-left: 10px;"></div>
 
         <div class="btn-group">
-            <button type="button" class="btn btn-info dropdown-toggle" id="logout_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-left: 30px;
-            padding-right: 30px;
-            letter-spacing: 4px;">
-                {{request.user.username}} <sup style="color: red; font-size: 16px;
-                font-weight: bolder;">{{count}}</sup>
+          <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" style="font-family: 'Yanone Kaffeesatz', sans-serif;font-size:24px;letter-spacing:2px;">
+            {{request.user.username}} <sup style="color: red; font-size: 16px;
+            font-weight: bolder;">{{count}}</sup>
+          </button>
+          <div class="dropdown-menu dropdown-menu-lg-right">
+            <button class="dropdown-item" type="button">
+              <aside>
+                  <img src="{% static 'images/account.png' %}" alt="" height="20px" width="20px" style="float:left; margin-top:4px">
+              </aside>
+              <a href="viewprofile/" style="letter-spacing: 2px;font-family: 'Nunito', sans-serif; font-size:20px; text-align:center; margin-left:16px;text-decoration:none;">Profile</a>
+              {% if count == 0 %}
+              {% else %}
+                <sup class="badge badge-primary badge-pill">{{count}}</sup>
+              {% endif %}
             </button>
-            
-            <div class="dropdown-menu">
-              <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-center" style="border:none">
-                  <a class="dropdown-item" href="viewprofile/">Profile</a>
-                  <span class="badge badge-primary badge-pill">{{count}}</span>
-                </li>
-                <div class="dropdown-divider"></div>
-                <li class="list-group-item d-flex justify-content-between align-items-center" style="border:none">
-                  <a class="dropdown-item" href="logout/">LOGOUT</a>
-                </li>
-              </ul>
+
+            <div class="dropdown-divider"></div>
+
+            <button class="dropdown-item" type="button">
+              <aside>
+                  <img src="{% static 'images/logout.png' %}" alt="" height="20px" width="20px" style="float:left; margin-top:4px">
+              </aside>
+              <a href="logout/" style="letter-spacing: 2px;font-family: 'Nunito', sans-serif; font-size:20px; text-align:center; margin-left:16px;text-decoration:none;">Logout</a>
+          </button>
           </div>
         </div>
 
-        <div style="margin-left: 10px;"></div>
-        <img src="{% static 'images/broccoli.png' %}" alt="" width="40px" height="40px">
       {% else %}    
 
         <div style="margin-left: 10px;"></div>
 
         <!-- login   -->
-        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">
+        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal" style="font-family: 'Yanone Kaffeesatz', sans-serif;font-size:24px;letter-spacing:2px;">
             LOGIN
         </button>
         
@@ -111,7 +114,7 @@
         <div style="margin-left: 10px;"></div>
 
         <!-- signup -->
-        <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#staticBackdrop">
+        <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#staticBackdrop" style="font-family: 'Yanone Kaffeesatz', sans-serif;font-size:24px;letter-spacing:2px;">
             SIGNUP
         </button>
         

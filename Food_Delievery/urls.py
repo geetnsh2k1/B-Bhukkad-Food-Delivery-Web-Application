@@ -22,6 +22,8 @@ from django.conf.urls import url
 
 urlpatterns = [
     url('', include('home.urls')),
+    url('restaurant/', include('food_items.urls')),
+    url('task/', include('todo.urls')),
     path('admin/', admin.site.urls),
 ]
 urlpatterns += staticfiles_urlpatterns()

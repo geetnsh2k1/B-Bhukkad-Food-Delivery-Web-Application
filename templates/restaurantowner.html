@@ -1,0 +1,91 @@
+{% if restaurant %}
+        {% if restaurant.confirm %}
+            <div style="text-align: center;font-size:22px;padding-top:6.5%;">
+                <div class="alert alert-success alert-dismissible fade show" role="alert" style="text-align: center;">
+                    <strong style="text-align: center; letter-spacing:5px">Your restaurant is successfully registered with us.</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+
+            <div>
+                <h3 style="font-weight: 500;font-family: 'Poppins', sans-serif;font-size: 30px;color: #393939;padding-left:2.5%;padding-top:2%;">Welcome back {{request.user.first_name}}!</h3>
+                <hr>
+            </div>
+
+            <br>
+
+            <div style="display: flex;flex-direction:row;justify-content:space-between;margin-left:5%;margin-right:5%;">
+                <div style="height:180px;background: #00b5e9;width:20%;border:0px solid transparent;border-radius:3px;">
+                    <div style="display: flex;flex-direction:row;justify-content:space-evenly;">
+                        <div style="margin-left: 8%;margin-top:10%;">
+                            <h2 style="color:white;padding-bottom:0;margin-bottom:0;font-family: 'Raleway', sans-serif;">100512</h2>
+                            <p style="color:white;font-family: 'Space Grotesk', sans-serif;opacity:0.8;font-size:24px;letter-spacing:2px;">orders</p>
+                        </div>
+                        <div style="margin-top:35%;opacity:0.5;overflow:hidden;padding-right:10px;">
+                            <svg width="5em" height="5em" viewBox="0 0 16 16" class="bi bi-cart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div style="height:180px;background: #ff8300;width:20%;border:0px solid transparent;border-radius:3px;">
+                    <div style="display: flex;flex-direction:row;justify-content:space-evenly;">
+                        <div style="margin-left: 8%;margin-top:10%;">
+                            <h2 style="color:white;padding-bottom:0;margin-bottom:0;font-family: 'Raleway', sans-serif;">100512</h2>
+                            <p style="color:white;font-family: 'Space Grotesk', sans-serif;opacity:0.8;font-size:24px;letter-spacing:2px;">orders</p>
+                        </div>
+                        <div style="margin-top:35%;opacity:0.5;overflow:hidden;padding-right:10px;">
+                            <svg width="5em" height="5em" viewBox="0 0 16 16" class="bi bi-cart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div style="height:180px;background: #00b26f;width:20%;border:0px solid transparent;border-radius:3px;">
+                    <div style="display: flex;flex-direction:row;justify-content:space-evenly;">
+                        <div style="margin-left: 8%;margin-top:10%;">
+                            <h2 style="color:white;padding-bottom:0;margin-bottom:0;font-family: 'Raleway', sans-serif;">100512</h2>
+                            <p style="color:white;font-family: 'Space Grotesk', sans-serif;opacity:0.8;font-size:24px;letter-spacing:2px;">profit</p>
+                        </div>
+                        <div style="margin-top:35%;opacity:0.5;overflow:hidden;padding-right:10px;">
+                            <svg width="5em" height="5em" viewBox="0 0 16 16" class="bi bi-cart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div style="height:180px;background: #fa4251;width:20%;border:0px solid transparent;border-radius:3px;">
+                    <div style="display: flex;flex-direction:row;justify-content:space-evenly;">
+                        <div style="margin-left: 8%;margin-top:10%;">
+                            <h2 style="font-family: 'Raleway', sans-serif;color:white;padding-bottom:0;margin-bottom:0">
+                                ₹1,00,512</h2>
+                            <p style="color:white;font-family: 'Space Grotesk', sans-serif;opacity:0.8;font-size:24px;letter-spacing:2px;">loss</p>
+                        </div>
+                        <div style="margin-top:35%;opacity:0.5;overflow:hidden;padding-right:10px;">
+                            <svg width="5em" height="5em" viewBox="0 0 16 16" class="bi bi-cart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+        {% else %}
+            <div class="alert alert-info alert-dismissible fade show" role="alert" style="text-align: center;">
+                <strong style="text-align: center; letter-spacing:5px">Your request is still pending.</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endif %}
+{% else %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="text-align: center;">
+        <strong style="text-align: center; letter-spacing:5px">Your request is rejected.</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endif %}

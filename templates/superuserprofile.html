@@ -1,0 +1,501 @@
+{% load static %}
+{% load home_tags %}
+  <!-- ASIDE BAR -->
+  <aside style="width: 25%;position:fixed;left: 0px;top: 0px;bottom: 0;background: #fff;
+    overflow-y: auto;background-color:#eeeeee;padding-top:81px;max-height: 100vh;display: flex;flex-direction: column;">
+    
+    <div style="height: 81px;text-align:center;background-color:#f6f5f5!important;margin-top:-81px;">
+      <div style="margin-top:20px;"></div>
+      <span style="font-size: 28px;font-family: 'Space Grotesk', sans-serif;font-weight:bold;letter-spacing:2px;color:#00334e;font-family: 'Fredoka One', cursive;">ADMIN CONSOLE</span>
+    </div>
+
+    <div>
+      <ul style="list-style-type: none;font-size: 150%;font-family: 'Yanone Kaffeesatz', sans-serif;height:100%;margin-top:5%;">
+        <li class="sidebar" style="margin-bottom: 12%;"><button style="background-color: transparent;border:none;outline:none;color:black;opacity:0.5;font-weight:1000;letter-spacing:2px;" id="homelink">Overview</button></li>
+        <li class="sidebar" style="margin-bottom: 12%;"><button style="background-color: transparent;border:none;outline:none;color:black;opacity:0.5;font-weight:1000;letter-spacing:2px;" id="notificationslink">Notifications</button></li>
+        <li class="sidebar" style="margin-bottom: 12%;"><button style="background-color: transparent;border:none;outline:none;color:black;opacity:0.5;font-weight:1000;letter-spacing:2px;" id="messageslink">Messages</button></li>
+        <li class="sidebar" style="margin-bottom: 12%;"><button style="background-color: transparent;border:none;outline:none;color:black;opacity:0.5;font-weight:1000;letter-spacing:2px;" id="customerslink">Customers</button></li>
+        <li class="sidebar" style="margin-bottom: 12%;"><button style="background-color: transparent;border:none;outline:none;color:black;opacity:0.5;font-weight:1000;letter-spacing:2px;" id="ownerslink">Owners</button></li>
+        <li class="sidebar" style="margin-bottom: 12%;"><button style="background-color: transparent;border:none;outline:none;color:black;opacity:0.5;font-weight:1000;letter-spacing:2px;" id="workingrestaurantslink">Working Restaurants</button></li>
+        <li class="sidebar"><button style="background-color: transparent;border:none;outline:none;color:black;opacity:0.5;font-weight:1000;letter-spacing:2px;" id="pendingrequestslink">Pending Requests</button></li>
+      </ul>
+
+    </div>
+
+  </aside>
+
+  <!-- MAIN-CONTENT -->
+<div id="home">
+  <div style="margin-left:25%;background-color:rgb(228, 226, 225);">
+
+    <div style="padding-left: 5%;padding-top: 12%;padding-bottom:2%;">
+      <h2 style="font-size: 36px;font-weight:400;opacity:0.8">Overview</h2>
+    </div>
+
+    <div style="display:flex;flex-direction:row;justify-content:space-evenly;margin-left:5%;margin-right:5%;">
+
+      <div style="background-image: -webkit-linear-gradient(90deg, #3f5efb 0%, #fc466b 100%);border:0px solid transparent; border-radius:5px;width:20%;display:flex;flex-direction:column;justify-content:space-between;">
+        
+        <div style="margin-bottom: 0;margin-left:10%;">
+          <svg width="5em" height="5em" viewBox="0 0 16 16" class="bi bi-person" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+          </svg>
+        </div>
+        
+        <div style="margin-top:0%;margin-left:15%;">
+          <span id="customer_count" style="color:white; font-size:24px;display:inline">{{customers_count}}</span>
+          <p style="font-family: 'Space Grotesk', sans-serif;color:white;opacity:0.6;margin-bottom:2%;">total customers</p>
+        </div>
+
+        <div>
+          <canvas id="customers" width="200" height="100" style="display: block;height: 105px;width: 239px;"></canvas>
+        </div>
+
+      </div>
+
+      <div style="background-image: -webkit-linear-gradient(90deg, #11998e 0%, #38ef7d 100%);border:0px solid transparent; border-radius:5px;width:20%;margin-left:5%;display:flex;flex-direction:column;justify-content:space-between;">
+
+        <div style="margin-bottom: 0;margin-left:10%;">
+          <svg width="5em" height="5em" viewBox="0 0 16 16" class="bi bi-briefcase-fill" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M0 12.5A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5V6.85L8.129 8.947a.5.5 0 0 1-.258 0L0 6.85v5.65z"/>
+            <path fill-rule="evenodd" d="M0 4.5A1.5 1.5 0 0 1 1.5 3h13A1.5 1.5 0 0 1 16 4.5v1.384l-7.614 2.03a1.5 1.5 0 0 1-.772 0L0 5.884V4.5zm5-2A1.5 1.5 0 0 1 6.5 1h3A1.5 1.5 0 0 1 11 2.5V3h-1v-.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5V3H5v-.5z"/>
+          </svg>
+        </div>
+
+        <div style="margin-left:15%;margin-top:-0%;">
+          <span id="customer_count" style="color:white; font-size:24px;display:inline">{{working_restaurants}}</span>
+          <p style="font-family: 'Space Grotesk', sans-serif;color:white;opacity:0.6;margin-bottom:2%;">total restaurants</p>
+        </div>
+
+        <div>
+          <canvas id="restaurants" width="200" height="100" style="display: block;height: 110px;width: 239px;"></canvas>
+        </div>
+
+      </div>
+
+      <div style="background-image: -webkit-linear-gradient(90deg, #ee0979 0%, #ff6a00 100%);border:0px solid transparent; border-radius:5px;width:20%;margin-left:5%;display:flex;flex-direction:column;justify-content:space-between;">
+        
+        <div style="margin-bottom: 0;margin-left:10%;">
+          <svg width="5em" height="5em" viewBox="0 0 16 16" class="bi bi-card-checklist" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+            <path fill-rule="evenodd" d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z"/>
+          </svg>
+        </div>
+
+        <div style="margin-left:15%;">
+          <span id="customer_count" style="color:white; font-size:24px;display:inline">{{newrestaurants_count}}</span>
+          <p style="font-family: 'Space Grotesk', sans-serif;color:white;opacity:0.6;margin-bottom:2%;">total requests</p>
+        </div>
+
+        <div>
+          <canvas id="requests" width="200" height="100" style="display: block;height: 110px;width: 239px;"></canvas>
+        </div>
+
+      </div>
+
+      <div style="background-image: -webkit-linear-gradient(90deg, #45b649 0%, #dce35b 100%);border:0px solid transparent; border-radius:5px;width:20%;margin-left:5%;display:flex;flex-direction:column;justify-content:space-between;">
+
+        <div style="margin-top: 2%;margin-left:10%;">
+          <svg width="3.5em" height="3.4em" viewBox="0 0 16 16" class="bi bi-cart-fill" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+          </svg>
+        </div>
+
+        <div style="margin-left:15%;">
+          <span id="customer_count" style="color:white; font-size:24px;display:inline">{{newrestaurants_count}}</span>
+          <p style="font-family: 'Space Grotesk', sans-serif;color:white;opacity:0.6;margin-bottom:2%;">total orders</p>
+        </div>
+
+        <div>
+          <canvas id="orders" width="200" height="100" style="display: block;height: 110px;width: 239px;"></canvas>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div style="display: flex;flex-direction:row;justify-content:space-around;margin-top:5%">
+      <div style="border:0.5px solid lightgray;height:400px; 
+      background-color:rgb(255, 242, 242);width:50%;border-radius:10px;">
+        <h3 style="margin:8%;font-family: 'Space Grotesk', sans-serif;
+        color:rgb(160, 105, 105);">
+          Recent Reports
+        </h3>
+
+        <div style="display: flex;flex-direction:row; justify-content:space-evenly">
+          <div>
+            <span style="display:inline-block;content:'';border: 0px solid green;background-color:lightgreen;height:10px;width:10px;border-radius:10px;">
+
+            </span> <span style="font-family: 'Dancing Script', cursive;font-size:20px;">Profit</span>
+          </div>
+
+          <div>
+            <span style="display:inline-block;content:'';border: 0px solid green;background-color:red;height:10px;width:10px;border-radius:10px"></span>
+            <span style="font-family: 'Dancing Script', cursive;font-size:20px;">Loss</span>
+          </div>
+        </div>
+
+        <div style="margin-top: 70px;">
+          <canvas id="recent_report2" height="437" width="910" class="chartjs-render-monitor" style="display: block; height: 120%; width: 120%;"></canvas>
+        </div>
+
+      </div>
+      
+      <div style="border:0.5px solid lightgray;height:350px; 
+      background-color:rgb(255, 242, 242);width:45%;border-radius:10px;">
+        <h4 style="margin:8%;font-family: 'Space Grotesk', sans-serif;
+        color:rgb(160, 105, 105);letter-spacing:2px;">
+          Char By %
+        </h4>
+
+        <div style="display: flex;flex-direction:row; justify-content:space-evenly">
+          <div>
+            <span style="display:inline-block;content:'';border: 0px solid green;background-color:lightgreen;height:10px;width:10px;border-radius:10px;">
+
+            </span> <span style="font-family: 'Dancing Script', cursive;font-size:20px;">Profit</span>
+          </div>
+
+          <div>
+            <span style="display:inline-block;content:'';border: 0px solid green;background-color:red;height:10px;width:10px;border-radius:10px"></span>
+            <span style="font-family: 'Dancing Script', cursive;font-size:20px;">Loss</span>
+          </div>
+        </div>
+
+        <div style="margin-top: 10px;">
+          <canvas id="recent_reports" height="437" width="910" class="chartjs-render-monitor" style="display: block; height: 120%; width: 120%;"></canvas>
+        </div>
+
+      </div>
+      
+    </div>
+
+    <div>
+      <div style="background-color: #e4eb63;height:500px; width:80%;margin:10%;border:0px solid yellow; border-radius:10px;overflow-y:auto;">
+        <div style="height:20%;width:100%;text-align:center;">
+            <h3 style="font-family: 'Indie Flower', cursive;font-size:52px;font-weight:bold;letter-spacing:2px;opacity:1;padding-top:5%;">To do list </h3>
+            <br><hr>
+        </div>
+        <div style="margin-left: 85%;">
+          <button id="add" style="border: none;background:none;padding-top:21.5%;">
+            <svg id="addicon" width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-plus-circle-fill" fill="rgba(17, 221, 55, 1)" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+            </svg>
+          </button>
+        </div>
+
+        <div id="addtask">
+          <form action="task/addtask/" method="POST">
+            <input type="text" name="task" id="">
+            <input type="time" name="time" id="">
+            <button type="submit">Add</button>
+          </form>
+        </div>
+
+        <div id="taskslist">
+          {% if tasks %}
+            <table class="table" style="border: none;">
+              <thead class="" style="border: none;">
+                <tr>
+                  <th scope="col" style="border: none;font-family: 'Indie Flower', cursive;font-size:24px;letter-spacing:2px;font-weight:600">Tasks</th>
+                  <th scope="col" style="border: none;font-family: 'Indie Flower', cursive;font-size:24px;letter-spacing:2px;font-weight:600">Done?</th>
+                  <th scope="col" style="border: none;font-family: 'Indie Flower', cursive;font-size:24px;letter-spacing:2px;font-weight:600">Check</th>
+                </tr>
+              </thead>
+              <tbody style="border: none;"> 
+
+                {% for task in tasks %}
+
+                  <tr>
+                    <td style="font-family: 'Architects Daughter', cursive;font-size:24px;margin-right:52%;">
+                      <span id="task">{{task.task}} </span>
+                    </td>
+                    <td>
+                      <form action="task/deletetask/" method="post">
+                        <input type="hidden" name="task" value="{{task.task}}">
+                        <button class="btn btn-group btn-outline-danger" type="submit">Done</button>
+                      </form>
+                    </td>
+                    <td>
+                      <button id="check" class="btn btn-group btn-outline-primary" type="submit">Check</button>
+                    </td>
+                  </tr>
+                {% endfor %}
+                
+              </tbody>
+            </table>
+          {% else %}
+            no tasks
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+    <br>
+  </div>
+</div>
+
+<div id="notifications">
+  <div style="margin-left:25%;background-color:rgb(228, 226, 225);">
+    <div style="padding-left: 5%;padding-top: 12%;padding-bottom:2%;">
+      <h2 style="font-size: 36px;font-weight:400;opacity:0.8;font-family: 'Xanh Mono', monospace;">Notifications</h2>
+    </div>
+    
+    <div>
+      <div style="height:500px; width:80%; background-color:#e4eb63;margin-left:10%;margin-right:10%;margin-bottom:5%;margin-top:3%;border:0px solid transparent;border-radius:10px;">
+        
+        <div id="content" style="padding:8%;overflow-y:auto">
+          {% if newrestaurants %}
+            <table class="table" style="border:none;" cellpadding="10" cellspacing="10">
+              <thead>
+                <tr style="font-family: 'Indie Flower', cursive;font-size:28px;font-weight:bolder;">
+                  <td style="border: none;text-decoration:underline;">Restaurant Name</td>
+                  <td style="border: none;text-decoration:underline;">Owner Name</td>
+                  <td style="border: none;text-decoration:underline;">Accept</td>
+                  <td style="border: none;text-decoration:underline;">Reject</td>
+                </tr>
+              </thead>
+              <tbody>
+                {% for restaurant in newrestaurants %}
+                  <tr style="font-family: 'Architects Daughter', cursive;font-size:24px;">
+                    <td style="border: none;font-size:24px;">{{restaurant.name}}</td>
+                    <td style="border: none;font-size:20px;">{{restaurant.owner.user.first_name}}</td>
+                    <td style="border: none;">
+                      <form action="accept/" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="restaurantname" value="{{restaurant.name}}">
+                        <button type="submit" class="btn btn-group btn-success">Accept</button>
+                      </form>
+                    </td>
+                    <td style="border: none;">
+                      <form action="reject/" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="restaurantname" value="{{restaurant.name}}">
+                        <button type="submit" class="btn btn-group btn-danger">Reject</button>
+                      </form>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <div>
+              <h2 style="font-family: 'Indie Flower', cursive;font-size:42 px;font-weight:bolder;letter-spacing:2px;padding:20%;text-decoration:underline;color:#bb2205;">No new notifications🥱</h2>
+            </div>
+          {% endif %}
+        </div>
+
+      </div>
+
+      <div style="height:1px;"></div>
+
+    </div>
+  </div>
+</div>
+
+<div id="messages">
+  <div style="margin-left:25%;background-color:rgb(228, 226, 225);">
+    <div style="padding-left: 5%;padding-top: 12%;padding-bottom:2%;">
+      <h2 style="font-size: 36px;font-weight:400;opacity:0.8">Messages</h2>
+    </div>
+  </div>
+</div>
+
+<div id="customer">
+  <div style="margin-left:25%;background-color:rgb(228, 226, 225);">
+    <div style="padding-left: 5%;padding-top: 12%;padding-bottom:2%;">
+      <h2 style="font-size: 36px;font-weight:400;opacity:0.8;font-family: 'Xanh Mono', monospace;">Customers</h2>
+    </div>
+
+    <div>
+      <div style="height:500px; width:80%; background-color:#e4eb63;margin-left:10%;margin-right:10%;margin-bottom:5%;margin-top:3%;border:0px solid transparent;border-radius:10px;">
+        
+        <div id="content" style="padding:8%;overflow-y:auto">
+          
+          <table class="table" style="border:none;" cellpadding="10" cellspacing="10">
+            <thead>
+              <tr style="font-family: 'Indie Flower', cursive;font-size:28px;font-weight:bolder;">
+                <td style="border: none;text-decoration:underline;">Picture</td>
+                <td style="border: none;text-decoration:underline;">Name</td>
+                <td style="border: none;text-decoration:underline;">Phone</td>
+                <td style="border: none;text-decoration:underline;">Remove</td>
+              </tr>
+            </thead>
+            <tbody>
+              {% for customer in customers %}
+                <tr style="font-family: 'Architects Daughter', cursive;font-size:24px;">
+                  <td style="border: none;font-size:20px;"><img src="{{customer.picture.url}}" alt="" height="50px" width="50px"></td>
+                  <td style="border: none;font-size:24px;">{{customer.user.first_name}}</td>
+                  <td style="border: none;font-size:20px;">{{customer.phone}}</td>
+                  <td style="border: none;">
+                    <form action="removecustomer/" method="POST">
+                      {% csrf_token %}
+                      <input type="hidden" name="customername" value="{{customer.user.username}}">
+                      <button type="submit" class="btn btn-group btn-outline-danger">Remove</button>
+                    </form>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <div style="height:1px;"></div>
+
+    </div>
+
+  </div>
+</div>
+
+<div id="owners">
+  <div style="margin-left:25%;background-color:rgb(228, 226, 225);">
+    <div style="padding-left: 5%;padding-top: 12%;padding-bottom:2%;">
+      <h2 style="font-size: 36px;font-weight:400;opacity:0.8;font-family: 'Xanh Mono', monospace;">Owners</h2>
+    </div>
+
+    <div>
+      <div style="height:500px; width:80%; background-color:#e4eb63;margin-left:10%;margin-right:10%;margin-bottom:5%;margin-top:3%;border:0px solid transparent;border-radius:10px;">
+        
+        <div id="content" style="padding:8%;overflow-y:auto">
+          
+          <table class="table" style="border:none;" cellpadding="10" cellspacing="10">
+            <thead>
+              <tr style="font-family: 'Indie Flower', cursive;font-size:28px;font-weight:bolder;">
+                <td style="border: none;text-decoration:underline;">Owner Name</td>
+                <td style="border: none;text-decoration:underline;">Restaurant Name</td>
+                <td style="border: none;text-decoration:underline;">End Up</td>
+              </tr>
+            </thead>
+            <tbody>
+              {% for restaurant in restaurants %}
+                <tr style="font-family: 'Architects Daughter', cursive;font-size:24px;">
+                  <td style="border: none;font-size:24px;">{{restaurant.owner.user.first_name}}</td>
+                  <td style="border: none;font-size:20px;">{{restaurant.name}}</td>
+                  <td style="border: none;">
+                    <form action="removerestaurant/" method="POST">
+                      {% csrf_token %}
+                      <input type="hidden" name="restaurantname" value="{{restaurant.name}}">
+                      <button type="submit" class="btn btn-group btn-outline-danger">Remove</button>
+                    </form>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <div style="height:1px;"></div>
+
+    </div>
+
+  </div>
+</div>
+
+<div id="workingrestaurants">
+  
+  <div style="margin-left:25%;background-color:rgb(228, 226, 225);">
+    <div style="padding-left: 5%;padding-top: 12%;padding-bottom:2%;">
+      <h2 style="font-size: 40px;font-weight:400;opacity:0.8;font-family: 'Xanh Mono', monospace;">Working Restaurants</h2>
+    </div>
+
+    <div>
+      <div style="height:500px; width:80%; background-color:#e4eb63;margin-left:10%;margin-right:10%;margin-bottom:5%;margin-top:3%;border:0px solid transparent;border-radius:10px;">
+        
+        <div id="content" style="padding:8%;overflow-y:auto">
+          
+          <table class="table" style="border:none;" cellpadding="10" cellspacing="10">
+            <thead>
+              <tr style="font-family: 'Indie Flower', cursive;font-size:28px;font-weight:bolder;">
+                <td style="border: none;text-decoration:underline;">Restaurant Name</td>
+                <td style="border: none;text-decoration:underline;">Owner Name</td>
+                <td style="border: none;text-decoration:underline;">End Up</td>
+              </tr>
+            </thead>
+            <tbody>
+              {% for restaurant in restaurants %}
+                <tr style="font-family: 'Architects Daughter', cursive;font-size:24px;">
+                  <td style="border: none;font-size:24px;">{{restaurant.name}}</td>
+                  <td style="border: none;font-size:20px;">{{restaurant.owner.user.first_name}}</td>
+                  <td style="border: none;">
+                    <form action="removerestaurant/" method="POST">
+                      {% csrf_token %}
+                      <input type="hidden" name="restaurantname" value="{{restaurant.name}}">
+                      <button type="submit" class="btn btn-group btn-outline-danger">Remove</button>
+                    </form>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <div style="height:1px;"></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div id="pendingrequests">
+  <div style="margin-left:25%;background-color:rgb(228, 226, 225);">
+    <div style="padding-left: 5%;padding-top: 12%;padding-bottom:2%;">
+      <h2 style="font-size: 40px;font-weight:400;opacity:0.8;font-family: 'Xanh Mono', monospace;">Pending Requests</h2>
+    </div>
+
+    <div>
+      <div style="height:500px; width:80%; background-color:#e4eb63;margin-left:10%;margin-right:10%;margin-bottom:5%;margin-top:3%;border:0px solid transparent;border-radius:10px;">
+        
+        <div id="content" style="padding:8%;overflow-y:auto">
+          {% if newrestaurants %}
+            <table class="table" style="border:none;" cellpadding="10" cellspacing="10">
+              <thead>
+                <tr style="font-family: 'Indie Flower', cursive;font-size:28px;font-weight:bolder;">
+                  <td style="border: none;text-decoration:underline;">Restaurant Name</td>
+                  <td style="border: none;text-decoration:underline;">Owner Name</td>
+                  <td style="border: none;text-decoration:underline;">Accept</td>
+                  <td style="border: none;text-decoration:underline;">Reject</td>
+                </tr>
+              </thead>
+              <tbody>
+                {% for restaurant in newrestaurants %}
+                  <tr style="font-family: 'Architects Daughter', cursive;font-size:24px;">
+                    <td style="border: none;font-size:24px;">{{restaurant.name}}</td>
+                    <td style="border: none;font-size:20px;">{{restaurant.owner.user.first_name}}</td>
+                    <td style="border: none;">
+                      <form action="accept/" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="restaurantname" value="{{restaurant.name}}">
+                        <button type="submit" class="btn btn-group btn-outline-success">Accept</button>
+                      </form>
+                    </td>
+                    <td style="border: none;">
+                      <form action="reject/" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="restaurantname" value="{{restaurant.name}}">
+                        <button type="submit" class="btn btn-group btn-outline-danger">Reject</button>
+                      </form>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <div>
+              <h2 style="font-family: 'Indie Flower', cursive;font-size:42 px;font-weight:bolder;letter-spacing:2px;padding:20%;text-decoration:underline;color:#bb2205;">No requests pending🥱</h2>
+            </div>
+          {% endif %}
+        </div>
+
+      </div>
+
+      <div style="height:1px;"></div>
+
+    </div>
+  </div>
+</div>

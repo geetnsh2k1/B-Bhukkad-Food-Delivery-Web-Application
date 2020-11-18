@@ -5,12 +5,89 @@
 {% endblock title %}
 
 {% block css %}
-    
+    <style>
+
+      .sidebarbtn:hover{
+        color:blue;
+      }
+
+      .sidebarbtn:active{
+        color:blue;
+      }
+
+      .btn-light {
+        color: gray;
+        background-color: transparent;
+        border-color: transparent;
+        box-shadow: none;
+        outline: none;
+        padding: 0px;
+        margin: 0px;
+      }
+      .btn-light:hover{
+        background-color: transparent;
+        opacity: 1;
+        border:none;
+      }
+      #noticount, #messagecount{
+        position: relative;
+        left: -15px;
+        top: -6px;
+        display: inline-block;
+        background-color: #ff4b5a;
+        border: none;
+        border-radius: 0px;
+        width: 16px;
+        height: 16px;
+        line-height: 13px;
+        color: white;
+        border: 0.1px solid #ff4b5a;
+        border-radius: 38px;
+        opacity: 0.9;
+        
+      }
+      .noti-dropdown::before{
+        content: '';
+        display: block;
+        width: 19px;
+        height: 19px;
+        border-bottom: 9px solid #ff4b5a;
+        opacity: 0.3;
+        border-top: 9px solid transparent;
+        border-left: 9px solid transparent;
+        border-right: 9px solid transparent;
+        position: absolute;
+        top: -19px;
+        left: 338px;
+        z-index: 3;
+      }
+      .message-dropdown::before{
+        content: '';
+        display: block;
+        width: 19px;
+        height: 19px;
+        border-bottom: 9px solid #ff4b5a;
+        opacity: 0.3;
+        border-top: 9px solid transparent;
+        border-left: 9px solid transparent;
+        border-right: 9px solid transparent;
+        position: absolute;
+        top: -19px;
+        left: 150px;
+        z-index: 3;
+      }
+      p{
+        margin-block-end:0.2em;
+      }
+    </style>
 {% endblock css %}
 
 {% block content %}
-
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  {% if request.user.is_superuser %}
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light" style="margin-left: 25%;width:75%">
+  {% else %}
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+  {% endif %}  
     <a class="navbar-brand" href="/"><img src="{% static 'images/FoodIcon.png' %}" alt="foodicon" width="55px" height="55px" style="margin-left:20px"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -23,9 +100,9 @@
         </li> -->
 
         {% if request.user.is_superuser %}
-            <span style="font-family: 'Bebas Neue', cursive; font-size:40px; letter-spacing:10px; padding-left:20px;color:rgb(90, 87, 87)">Welcome, Owner 😎</span>
+            
         {% else %}
-            <span style="font-family: 'Bebas Neue', cursive; font-size:40px; letter-spacing:10px; padding-left:20px;color:rgb(90, 87, 87)">Welcome, Customer 🤗</span>
+            <span style="font-family: 'Bebas Neue', cursive; font-size:30px; letter-spacing:10px; padding-left:20px;color:rgb(90, 87, 87)">Welcome, Customer 🤗</span>
         {% endif %}
 
       </ul>
@@ -34,61 +111,868 @@
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
 
-        <div style="margin-left: 10px;"></div>  
+      <div style="margin-left: 15px;"></div>  
       
-        <img src="{{customer.picture.url}}" alt="" height="55px" width="55px" style="border: 1px transparent solid; border-radius:4px">
+      <!-- SUPERUSER -->
+      {% if request.user.is_superuser %}
+        <!-- Notifications -->
 
-        <div style="margin-left: 10px;"></div>
+        <div class="btn-group" style="border: none;background:none;">
+          <button type="button" id="notification" class="btn btn-light dropdown" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+            <svg id="noti" style="opacity: 0.5;margin:0px;padding:0px;" width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-bell-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path style="margin: 0px;padding:0px;" d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+            </svg>
+            <span id="noticount" style="margin: 0px;">{{newrestaurants.count}}</span>
+          </button>
+          <div class="noti-dropdown dropdown-menu dropdown-menu-lg-right" style="width:380px;margin-top:10px;">
+            <p style="font-family: 'Xanh Mono', monospace;letter-spacing:1.5px;font-size:12px;padding-left:20px;width:100%;margin:0%;">You have {{newrestaurants_count}} new restaurants requests.</p>
 
-        <div class="btn-group">
-            <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                <span style="letter-spacing: 2px;font-family: 'Nunito', sans-serif; font-size:larger">{{request.user.first_name}} {{request.user.last_name}}</span>
-                  {% if count == 0 %}
-                  {% else %}
-                  <sup class="badge badge-danger badge-pill" style="margin-left: 5px;">{{count}}</sup>
-                  {% endif %}
-            </button>
-            <div class="dropdown-menu dropdown-menu-lg-right">
-              <button class="dropdown-item" type="button" disabled>
-                <div class="media">
-                    <img src="{{customer.picture.url}}" class="mr-3" alt="{% static 'images/default.png' %}" width="70px" height="70px" style="border: 1px transparent solid; border-radius:4px">
-                    <div class="media-body">
-                      <h5 class="mt-0" style="letter-spacing: 2px;font-family: 'Nunito', sans-serif; font-size:25px; text-align:center">{{request.user.first_name}} {{request.user.last_name}}</h5>
-                       <a class="nav-link disabled" href="" aria-disabled="true" style="text-align: center;">{{request.user.email}}</a>
-                    </div>
+            <div class="dropdown-divider"></div>
+
+            {% for restaurants in newrestaurants %}
+              {% if forloop.counter <= 2 %}
+                <div style="display:flex; flex-direction:row;justify-content:space-between;width:90%;margin:5%;">
+                  <div>
+                      <span style="font-size:24px; font-weight:bold; letter-spacing:2px;">{{restaurants.name|upper}}</span>
+                    <br>
+                    
+                    <p style="font-family: 'Xanh Mono', monospace;">by @{{restaurants.owner.user.first_name}} {{restaurants.owner.user.last_name}}</p>
+                    
+                    <p class="mb-1" style="font-family: 'Xanh Mono', monospace;font-size:15px;">
+                      {{restaurants.services}} <br> {{restaurants.cuisines}}
+                    </p>
+                    <p class="mb-0" style="font-family: 'Xanh Mono', monospace;        font-size:12px;">
+                      {{restaurants.number}}
+                    </p>
+                    <small style="font-size:12px">{{restaurants.location}} {{restaurants.city}}, {{restaurants.state}}</small>
                   </div>
-              </button>
-            
-              <div class="dropdown-divider"></div>
-              
-              <button class="dropdown-item" type="button">
-                <aside>
-                    <img src="{% static 'images/account.png' %}" alt="" height="20px" width="20px" style="float:left; margin-top:4px">
-                </aside>
-                <a href="account/" style="letter-spacing: 2px;font-family: 'Nunito', sans-serif; font-size:20px; text-align:center; margin-left:16px;text-decoration:none;">Account</a>
+                  <div style="display:flex; flex-direction:column; align-items:center;">
+                    <div style="margin-bottom:20%;">
+                      <form action="accept/" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success">Accept👍🏻</button>
+                        <input type="hidden" name="name" value="{{restaurants}}">
+                      </form>
+                    </div>
+                    <div>
+                      <form action="reject/" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Reject👎🏻</button>
+                        <input type="hidden" name="name" value="{{restaurants}}">
+                      </form>
+                    </div>
+                 </div>
+          </div>
+                <div class="dropdown-divider"></div>
+              {% endif %}
+          {% endfor %}
+            <a href="#" id="allnoti" style="display:block;text-align:center;font-family: 'Xanh Mono', monospace;text-decoration:none;letter-spacing:2.5px;">All Notifications</a>
+       </div>
+    </div>
+
+      <div style="margin-left: 10px;"></div>
+
+      <!-- MESSAGES -->
+      <div class="btn-group">
+        <button type="button" id="message" class="btn btn-light dropdown" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+          <svg style="opacity: 0.5;margin:0px;padding:0px;" width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-chat-left-dots-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path style="margin:0px;padding:0px;" fill-rule="evenodd" d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm5 4a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+          </svg> <span id="messagecount">0</span>
+        </button>
+        <div class="message-dropdown dropdown-menu dropdown-menu-lg-right" style="margin-top: 10px;">
+          <button class="dropdown-item" type="button">Action</button>
+          <button class="dropdown-item" type="button">Another action</button>
+          <button class="dropdown-item" type="button">Something else here</button>
+        </div>
+      </div>
+
+      {% else %}
+      {% endif %}
+
+      <div style="margin-left: 15px;"></div>  
+
+      <img src="{{customer.picture.url}}" alt="" height="55px" width="55px" style="border: 1px transparent solid; border-radius:4px">
+
+      <div style="margin-left: 10px;"></div>
+
+      <div class="btn-group">
+          <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+              <span style="letter-spacing: 2px;font-family: 'Nunito', sans-serif; font-size:larger">{{request.user.first_name}} {{request.user.last_name}}</span>
                 {% if count == 0 %}
                 {% else %}
-                  <sup class="badge badge-primary badge-pill">{{count}}</sup>
+                <sup class="badge badge-danger badge-pill" style="margin-left: 5px;">{{count}}</sup>
                 {% endif %}
-              </button>
-              
-              <div class="dropdown-divider"></div>
-              
-              <button class="dropdown-item" type="button">
-                  <aside>
-                      <img src="{% static 'images/logout.png' %}" alt="" height="20px" width="20px" style="float:left; margin-top:4px">
-                  </aside>
-                  <a href="" style="letter-spacing: 2px;font-family: 'Nunito', sans-serif; font-size:20px; text-align:center; margin-left:16px;text-decoration:none;">Logout</a>
-              </button>
+          </button>
+          <div class="dropdown-menu dropdown-menu-lg-right">
+            <button class="dropdown-item" type="button" disabled>
+              <div class="media">
+                  <img src="{{customer.picture.url}}" class="mr-3" alt="{% static 'images/default.png' %}" width="70px" height="70px" style="border: 1px transparent solid; border-radius:4px">
+                  <div class="media-body">
+                    <h5 class="mt-0" style="letter-spacing: 2px;font-family: 'Nunito', sans-serif; font-size:25px; text-align:center">{{request.user.first_name}} {{request.user.last_name}}</h5>
+                      <a class="nav-link disabled" href="" aria-disabled="true" style="text-align: center;">{{request.user.email}}</a>
+                  </div>
+                </div>
+            </button>
+          
+            <div class="dropdown-divider"></div>
             
-            </div>
-        </div>
-
+            <button class="dropdown-item" type="button">
+              <aside>
+                  <img src="{% static 'images/account.png' %}" alt="" height="20px" width="20px" style="float:left; margin-top:4px">
+              </aside>
+              <a href="account/" style="letter-spacing: 2px;font-family: 'Nunito', sans-serif; font-size:20px; text-align:center; margin-left:16px;text-decoration:none;">Account</a>
+              {% if count == 0 %}
+              {% else %}
+                <sup class="badge badge-primary badge-pill">{{count}}</sup>
+              {% endif %}
+            </button>
+            
+            <div class="dropdown-divider"></div>
+            
+            <button class="dropdown-item" type="button">
+                <aside>
+                    <img src="{% static 'images/logout.png' %}" alt="" height="20px" width="20px" style="float:left; margin-top:4px">
+                </aside>
+                <a href="logout/" style="letter-spacing: 2px;font-family: 'Nunito', sans-serif; font-size:20px; text-align:center; margin-left:16px;text-decoration:none;">Logout</a>
+            </button>
+          
+          </div>
+      </div>
     </div>
   </nav>
+
+  <!-- messages display -->
+  {% if messages %}
+  {% for message in messages %}
+      <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert" style="text-align: center;">
+          <strong style="text-align: center; letter-spacing:5px">{{message|title}}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+  {% endfor %}
+  {% endif %}
+
+  {% if request.user.is_superuser %}
+    {% include 'superuserprofile.html' %}   
+  {% else %}  
+    {% include 'customerprofile.html' %}
+  {% endif %} 
 
 {% endblock content %}
 
 {% block script %}
+    <script>
 
+      $("#allnoti").click(function(){
+          $("#notifications").show()
+          
+          $("#notificationslink").css("color", "#f73859")
+          $("#notificationslink").css("opacity", "1")
+  
+          $("#homelink").css("color", "black")
+          $("#homelink").css("opacity", "0.5")
+          $("#messageslink").css("color", "black")
+          $("#messageslink").css("opacity", "0.5")
+          $("#customerslink").css("color", "black")
+          $("#customerslink").css("opacity", "0.5")
+          $("#ownerslink").css("color", "black")
+          $("#ownerslink").css("opacity", "0.5")
+          $("#workingrestaurantslink").css("color", "black")
+          $("#workingrestaurantslink").css("opacity", "0.5")
+          $("#pendingrequestslink").css("color", "black")
+          $("#pendingrequestslink").css("opacity", "0.5")
+          
+          $("#home").hide()
+          $("#messages").hide()
+          $("#customer").hide()
+          $("#owners").hide()
+          $("#workingrestaurants").hide()
+          $("#pendingrequests").hide()
+      })
+
+      $("#homelink").css("color", "#f73859")
+      $("#homelink").css("opacity", "1")
+      $("#notifications").hide()
+      $("#messages").hide()
+      $("#customer").hide()
+      $("#owners").hide()
+      $("#workingrestaurants").hide()
+      $("#pendingrequests").hide()
+
+      $("#homelink").click(function(){
+        $("#home").show()
+        
+        $("#homelink").css("color", "#f73859")
+        $("#homelink").css("opacity", "1")
+
+        $("#notificationslink").css("color", "black")
+        $("#notificationslink").css("opacity", "0.5")
+        $("#messageslink").css("color", "black")
+        $("#messageslink").css("opacity", "0.5")
+        $("#customerslink").css("color", "black")
+        $("#customerslink").css("opacity", "0.5")
+        $("#ownerslink").css("color", "black")
+        $("#ownerslink").css("opacity", "0.5")
+        $("#workingrestaurantslink").css("color", "black")
+        $("#workingrestaurantslink").css("opacity", "0.5")
+        $("#pendingrequestslink").css("color", "black")
+        $("#pendingrequestslink").css("opacity", "0.5")
+        
+        $("#notifications").hide()
+        $("#messages").hide()
+        $("#customer").hide()
+        $("#owners").hide()
+        $("#workingrestaurants").hide()
+        $("#pendingrequests").hide()
+      })
+
+      $("#notificationslink").click(function(){
+        $("#notifications").show()
+        
+        $("#notificationslink").css("color", "#f73859")
+        $("#notificationslink").css("opacity", "1")
+
+        $("#homelink").css("color", "black")
+        $("#homelink").css("opacity", "0.5")
+        $("#messageslink").css("color", "black")
+        $("#messageslink").css("opacity", "0.5")
+        $("#customerslink").css("color", "black")
+        $("#customerslink").css("opacity", "0.5")
+        $("#ownerslink").css("color", "black")
+        $("#ownerslink").css("opacity", "0.5")
+        $("#workingrestaurantslink").css("color", "black")
+        $("#workingrestaurantslink").css("opacity", "0.5")
+        $("#pendingrequestslink").css("color", "black")
+        $("#pendingrequestslink").css("opacity", "0.5")
+        
+        $("#home").hide()
+        $("#messages").hide()
+        $("#customer").hide()
+        $("#owners").hide()
+        $("#workingrestaurants").hide()
+        $("#pendingrequests").hide()
+      })
+
+      $("#messageslink").click(function(){
+        $("#messages").show()
+        
+        $("#messageslink").css("color", "#f73859")
+        $("#messageslink").css("opacity", "1")
+        
+        $("#homelink").css("color", "black")
+        $("#homelink").css("opacity", "0.5")
+        $("#notificationslink").css("color", "black")
+        $("#notificationslink").css("opacity", "0.5")
+        $("#customerslink").css("color", "black")
+        $("#customerslink").css("opacity", "0.5")
+        $("#ownerslink").css("color", "black")
+        $("#ownerslink").css("opacity", "0.5")
+        $("#workingrestaurantslink").css("color", "black")
+        $("#workingrestaurantslink").css("opacity", "0.5")
+        $("#pendingrequestslink").css("color", "black")
+        $("#pendingrequestslink").css("opacity", "0.5")
+        
+        $("#home").hide()
+        $("#notifications").hide()
+        $("#customer").hide()
+        $("#owners").hide()
+        $("#workingrestaurants").hide()
+        $("#pendingrequests").hide()
+      })
+
+      $("#customerslink").click(function(){
+        $("#customer").show()
+        
+        $("#customerslink").css("color", "#f73859")
+        $("#customerslink").css("opacity", "1")
+        
+        $("#homelink").css("color", "black")
+        $("#homelink").css("opacity", "0.5")
+        $("#notificationslink").css("color", "black")
+        $("#notificationslink").css("opacity", "0.5")
+        $("#messageslink").css("color", "black")
+        $("#messageslink").css("opacity", "0.5")
+        $("#ownerslink").css("color", "black")
+        $("#ownerslink").css("opacity", "0.5")
+        $("#workingrestaurantslink").css("color", "black")
+        $("#workingrestaurantslink").css("opacity", "0.5")
+        $("#pendingrequestslink").css("color", "black")
+        $("#pendingrequestslink").css("opacity", "0.5")
+        
+        $("#home").hide()
+        $("#notifications").hide()
+        $("#messages").hide()
+        $("#owners").hide()
+        $("#workingrestaurants").hide()
+        $("#pendingrequests").hide()
+      })
+      
+      $("#ownerslink").click(function(){
+        $("#owners").show()
+        
+        $("#ownerslink").css("color", "#f73859")
+        $("#ownerslink").css("opacity", "1")
+        
+        $("#homelink").css("color", "black")
+        $("#homelink").css("opacity", "0.5")
+        $("#notificationslink").css("color", "black")
+        $("#notificationslink").css("opacity", "0.5")
+        $("#messageslink").css("color", "black")
+        $("#messageslink").css("opacity", "0.5")
+        $("#customerslink").css("color", "black")
+        $("#customerslink").css("opacity", "0.5")
+        $("#workingrestaurantslink").css("color", "black")
+        $("#workingrestaurantslink").css("opacity", "0.5")
+        $("#pendingrequestslink").css("color", "black")
+        $("#pendingrequestslink").css("opacity", "0.5")
+        
+        $("#home").hide()
+        $("#notifications").hide()
+        $("#messages").hide()
+        $("#customer").hide()
+        $("#workingrestaurants").hide()
+        $("#pendingrequests").hide()
+      })
+
+      $("#workingrestaurantslink").click(function(){
+        $("#workingrestaurants").show()
+        
+        $("#workingrestaurantslink").css("color", "#f73859")
+        $("#workingrestaurantslink").css("opacity", "1")
+        
+        $("#homelink").css("color", "black")
+        $("#homelink").css("opacity", "0.5")
+        $("#notificationslink").css("color", "black")
+        $("#notificationslink").css("opacity", "0.5")
+        $("#messageslink").css("color", "black")
+        $("#messageslink").css("opacity", "0.5")
+        $("#customerslink").css("color", "black")
+        $("#customerslink").css("opacity", "0.5")
+        $("#ownerslink").css("color", "black")
+        $("#ownerslink").css("opacity", "0.5")
+        $("#pendingrequestslink").css("color", "black")
+        $("#pendingrequestslink").css("opacity", "0.5")
+        
+        $("#home").hide()
+        $("#notifications").hide()
+        $("#messages").hide()
+        $("#customer").hide()
+        $("#owners").hide()
+        $("#pendingrequests").hide()
+      })
+
+      $("#pendingrequestslink").click(function(){
+        $("#pendingrequests").show()
+        
+        $("#pendingrequestslink").css("color", "#f73859")
+        $("#pendingrequestslink").css("opacity", "1")
+        
+        $("#homelink").css("color", "black")
+        $("#homelink").css("opacity", "0.5")
+        $("#notificationslink").css("color", "black")
+        $("#notificationslink").css("opacity", "0.5")
+        $("#messageslink").css("color", "black")
+        $("#messageslink").css("opacity", "0.5")
+        $("#customerslink").css("color", "black")
+        $("#customerslink").css("opacity", "0.5")
+        $("#ownerslink").css("color", "black")
+        $("#ownerslink").css("opacity", "0.5")
+        $("#workingrestaurantslink").css("color", "black")
+        $("#workingrestaurantslink").css("opacity", "0.5")
+        
+        $("#home").hide()
+        $("#notifications").hide()
+        $("#messages").hide()
+        $("#customer").hide()
+        $("#owners").hide()
+        $("#workingrestaurants").hide()
+      })
+
+      check = 0
+      $("#check").click(function(){
+        console.log('clicked')
+        if(check % 2 == 0){
+          $("#task").css("color", "red")
+          $("#task").css("fontWeight", "1000")
+        }else{
+          $("#task").css("color", "green")
+          $("#task").css("fontWeight", "1000")
+        }
+        check+=1
+      })
+
+      $("#add").mouseover(function(){
+        $("#addicon")[0].attributes[5].textContent = "rgba(17, 171, 55, 1)"
+      })
+
+      $("#add").mouseout(function(){
+        $("#addicon")[0].attributes[5].textContent = "rgba(17, 221, 55, 1)"
+      })
+
+      $("#addtask").hide()
+
+      click = 0
+      $("#add").click(function(){
+        if(click % 2 == 0){
+          $("#add").css("outline", "none")
+          $("#add").css("border", "none")
+          $("#addicon")[0].attributes[5].textContent = "rgba(17, 21, 55, 1)"
+          $("#addtask").show()  
+        }else{
+          $("#addtask").hide()  
+        }
+        click+=1
+      })
+
+      $("#notification").click(function(){
+        $("#notification").css("border", "none")
+        $("#notification").css("background", "none")
+        $("#notification").css("outline", "none")
+        $("#notification").css("box-shadow", "none")
+      })
+
+      $("#message").click(function(){
+        $("#message").css("border", "none")
+        $("#message").css("background", "none")
+        $("#message").css("outline", "none")
+        $("#message").css("box-shadow", "none")
+      })
+
+      $.ajax({
+        type:'GET',
+        url:'/customers_count_json/',
+        success:function(response){
+          total_customers = response.customers_count_json
+        },
+        error:function(error){
+          console.log(error)
+        }
+      })
+
+      $("#new").hide()
+
+      var clickcount = 0
+      $("#click").click(function(){
+        
+        if(clickcount % 2 == 0){
+          $("#new").show()
+        }else{
+          $("#new").hide()
+        }
+        clickcount += 1
+      })
+
+      jan_customers = '{{january_customers}}'
+      feb_customers = '{{feb_customers}}'
+      march_customers = '{{march_customers}}'
+      april_customers = '{{april_customers}}'
+      may_customers = '{{may_customers}}'
+      june_customers = '{{june_customers}}'
+      july_customers = '{{july_customers}}'
+      august_customers = '{{august_customers}}'
+      september_customers = '{{september_customers}}'
+      october_customers = '{{october_customers}}'
+      november_customers = '{{november_customers}}'
+      december_customers = '{{december_customers}}'
+      var ctz = document.getElementById("customers");
+    if (ctz) {
+      ctz.height = 130;
+      var myChart = new Chart(ctz, {
+        type: 'line',
+        data: {
+          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+          type: 'line',
+          datasets: [{
+            data: [jan_customers, feb_customers, march_customers, april_customers, may_customers, june_customers, july_customers, august_customers, september_customers, october_customers, november_customers, december_customers],
+            label: 'New Customers',
+            backgroundColor: 'rgba(255,255,255,.1)',
+            borderColor: 'rgba(255,255,255,.55)',
+          },]
+        },
+        options: {
+          maintainAspectRatio: true,
+          legend: {
+            display: false
+          },
+          layout: {
+            padding: {
+              left: 0,
+              right: 0,
+              top: 0,
+              bottom: 0
+            }
+          },
+          responsive: true,
+          scales: {
+            xAxes: [{
+              gridLines: {
+                color: 'transparent',
+                zeroLineColor: 'transparent'
+              },
+              ticks: {
+                fontSize: 2,
+                fontColor: 'transparent'
+              }
+            }],
+            yAxes: [{
+              display: false,
+              ticks: {
+                display: false,
+              }
+            }]
+          },
+          title: {
+            display: false,
+          },
+          elements: {
+            line: {
+              borderWidth: 0
+            },
+            point: {
+              radius: 0,
+              hitRadius: 10,
+              hoverRadius: 4
+            }
+          }
+        }
+      });
+    }
+
+
+    january_restaurants = '{{january_restaurants}}'
+    feb_restaurants = '{{feb_restaurants}}'
+    march_restaurants = '{{march_restaurants}}'
+    april_restaurants = '{{april_restaurants}}'
+    may_restaurants = '{{may_restaurants}}'
+    june_restaurants = '{{june_restaurants}}'
+    july_restaurants = '{{july_restaurants}}'
+    august_restaurants = '{{august_restaurants}}'
+    september_restaurants = '{{september_restaurants}}'
+    october_restaurants = '{{october_restaurants}}'
+    november_restaurants = '{{november_restaurants}}'
+    december_restaurants = '{{december_restaurants}}'    
+
+    var ctx = document.getElementById("restaurants");
+    if (ctx) {
+      ctx.height = 130;
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+          type: 'line',
+          datasets: [{
+            data: [january_restaurants, feb_restaurants, march_restaurants, april_restaurants, may_restaurants, june_restaurants, july_restaurants, august_restaurants, september_restaurants, october_restaurants, november_restaurants, december_restaurants],
+            label: 'Restaurants',
+            backgroundColor: 'transparent',
+            borderColor: 'rgba(255,255,255,.55)',
+          },]
+        },
+        options: {
+
+          maintainAspectRatio: false,
+          legend: {
+            display: false
+          },
+          responsive: true,
+          tooltips: {
+            mode: 'index',
+            titleFontSize: 12,
+            titleFontColor: '#000',
+            bodyFontColor: '#000',
+            backgroundColor: '#fff',
+            titleFontFamily: 'Montserrat',
+            bodyFontFamily: 'Montserrat',
+            cornerRadius: 3,
+            intersect: false,
+          },
+          scales: {
+            xAxes: [{
+              gridLines: {
+                color: 'transparent',
+                zeroLineColor: 'transparent'
+              },
+              ticks: {
+                fontSize: 2,
+                fontColor: 'transparent'
+              }
+            }],
+            yAxes: [{
+              display: false,
+              ticks: {
+                display: false,
+              }
+            }]
+          },
+          title: {
+            display: false,
+          },
+          elements: {
+            line: {
+              tension: 0.00001,
+              borderWidth: 1
+            },
+            point: {
+              radius: 4,
+              hitRadius: 10,
+              hoverRadius: 4
+            }
+          }
+        }
+      });
+    }
+
+
+    january_requests = '{{january_requests}}'
+    feb_requests = '{{feb_requests}}'
+    march_requests = '{{march_requests}}'
+    april_requests = '{{april_requests}}'
+    may_requests = '{{may_requests}}'
+    june_requests = '{{june_requests}}'
+    july_requests = '{{july_requests}}'
+    august_requests = '{{august_requests}}'
+    september_requests = '{{september_requests}}'
+    october_requests = '{{october_requests}}'
+    november_requests = '{{november_requests}}'
+    december_requests = '{{december_requests}}'    
+
+    var cty = document.getElementById("requests");
+    if (cty) {
+      cty.height = 130;
+      var myChart = new Chart(cty, {
+        type: 'line',
+        data: {
+          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+          type: 'line',
+          datasets: [{
+            data: [january_requests, feb_requests, march_requests, april_requests, may_requests, june_requests, july_requests, august_requests, september_requests, october_requests, november_requests, december_requests],
+            label: 'New Requests',
+            backgroundColor: 'transparent',
+            borderColor: 'rgba(255,255,255,.55)',
+          },]
+        },
+        options: {
+
+          maintainAspectRatio: false,
+          legend: {
+            display: false
+          },
+          responsive: true,
+          tooltips: {
+            mode: 'index',
+            titleFontSize: 12,
+            titleFontColor: '#000',
+            bodyFontColor: '#000',
+            backgroundColor: '#fff',
+            titleFontFamily: 'Montserrat',
+            bodyFontFamily: 'Montserrat',
+            cornerRadius: 3,
+            intersect: false,
+          },
+          scales: {
+            xAxes: [{
+              gridLines: {
+                color: 'transparent',
+                zeroLineColor: 'transparent'
+              },
+              ticks: {
+                fontSize: 2,
+                fontColor: 'transparent'
+              }
+            }],
+            yAxes: [{
+              display: false,
+              ticks: {
+                display: false,
+              }
+            }]
+          },
+          title: {
+            display: false,
+          },
+          elements: {
+            line: {
+              borderWidth: 1
+            },
+            point: {
+              radius: 4,
+              hitRadius: 10,
+              hoverRadius: 4
+            }
+          }
+        }
+      });
+    }
+
+    //ORDERS
+    var cta = document.getElementById("orders");
+    if (cta) {
+      cta.height = 115;
+      var myChart = new Chart(cta, {
+        type: 'bar',
+        data: {
+          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+          datasets: [
+            {
+              label: "My First dataset",
+              data: [78, 81, 80, 65, 58, 75, 60, 75, 65, 60, 60, 75],
+              borderColor: "transparent",
+              borderWidth: "0",
+              backgroundColor: "rgba(255,255,255,.3)"
+            }
+          ]
+        },
+        options: {
+          maintainAspectRatio: true,
+          legend: {
+            display: false
+          },
+          scales: {
+            xAxes: [{
+              display: false,
+              categoryPercentage: 1,
+              barPercentage: 0.65
+            }],
+            yAxes: [{
+              display: false
+            }]
+          }
+        }
+      });
+    }
+    // Percent Chart
+    var ctx = document.getElementById("recent_reports");
+    if (ctx) {
+      ctx.height = 280;
+      var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          datasets: [
+            {
+              label: "My First dataset",
+              data: [60, 40],
+              backgroundColor: [
+                '#A8F453',
+                'red'
+              ],
+              hoverBackgroundColor: [
+                'lightGreen',
+                '#F86B6F'
+              ],
+              borderWidth: [
+                0, 0
+              ],
+              hoverBorderColor: [
+                'transparent',
+                'transparent'
+              ]
+            }
+          ],
+          labels: [
+            'Profit',
+            'Loss'
+          ]
+        },
+        options: {
+          maintainAspectRatio: false,
+          responsive: true,
+          cutoutPercentage: 55,
+          animation: {
+            animateScale: true,
+            animateRotate: true
+          },
+          legend: {
+            display: false
+          },
+          tooltips: {
+            titleFontFamily: "Poppins",
+            xPadding: 15,
+            yPadding: 10,
+            caretPadding: 0,
+            bodyFontSize: 16
+          }
+        }
+      });
+    }
+
+    var elements = 10
+    var data1 = [52, 60, 55, 50, 65, 80, 57, 70, 105, 115,110,222,56]
+    var data2 = [102, 70, 80, 100, 56, 53, 80, 75, 65, 90, 100, 89, 45]
+
+    var ctx = document.getElementById("recent_report2");
+    if (ctx) {
+      ctx.height = 250;
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+          datasets: [
+            {
+              label: 'Profit',
+              backgroundColor: '#A8F453',
+              borderColor: 'transparent',
+              pointHoverBackgroundColor: '#fff',
+              borderWidth: 0,
+              data: data1
+
+            },
+            {
+              label: 'Loss',
+              backgroundColor: 'red',
+              borderColor: 'transparent',
+              pointHoverBackgroundColor: '#fff',
+              borderWidth: 0,
+              data: data2
+
+            }
+          ]
+        },
+        options: {
+          maintainAspectRatio: true,
+          legend: {
+            display: false
+          },
+          responsive: true,
+          scales: {
+            xAxes: [{
+              gridLines: {
+                drawOnChartArea: true,
+                color: '#f2f2f2'
+              },
+              ticks: {
+                fontFamily: "Poppins",
+                fontSize: 12
+              }
+            }],
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+                maxTicksLimit: 5,
+                stepSize: 50,
+                max: 150,
+                fontFamily: "Poppins",
+                fontSize: 12
+              },
+              gridLines: {
+                display: true,
+                color: '#f2f2f2'
+
+              }
+            }]
+          },
+          elements: {
+            point: {
+              radius: 0,
+              hitRadius: 10,
+              hoverRadius: 4,
+              hoverBorderWidth: 3
+            }
+          }
+
+
+        }
+      });
+    }
+
+    </script>
 {% endblock script %}

@@ -1,0 +1,239 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    <title>Add a Restaurant - Foodie Corner</title>
+{% endblock title %}
+
+{% block css %}
+    <style>
+        input, textarea{
+            width: 95%;
+            outline: none;
+            border: 0.5px solid lightgray;
+            border-radius: 4px;
+            padding-left: 20px;
+            caret-color: green;
+            height: 45px;
+            margin-bottom: 4%;
+            font-family: 'Montserrat', sans-serif;
+        }
+        textarea:focus{
+            border: 0.5px solid lightgreen;
+            border-radius: 4px;
+        }
+        input[type=text]:focus{
+            border: 0.5px solid lightgreen;
+            border-radius: 4px;
+        }
+        label{
+            font-family: 'Roboto Mono', monospace;
+        }
+        input[type=checkbox], input[type=radio] {
+            box-sizing: border-box;
+            padding: 0;
+            height: 10px;
+            margin-bottom: 0px;
+            width: 10px;
+        }
+        textarea{
+            height: 8 0px;
+        }
+        .main_form{
+            margin-right: 6%;
+            margin-left: 2%;
+        }
+        button{
+            width: 95%;
+            margin-bottom: 2%;
+        }
+    </style>
+{% endblock css %}
+
+{% block content %}
+    {% include 'navbar2.html' %}
+    <div style="background-color:#e1e4e6fd;">
+        <div style="padding-top: 3%; margin-left:5%;">
+            <div style="padding-bottom: 5px;">
+                <h2 style="font-family: 'Open Sans Condensed', sans-serif;font-size:42px;
+                font-weight:600;letter-spacing:4px;">Add<span style="padding-left: 20px;padding-right:20px;">a</span>Restaurant</h2>
+            </div>
+            <div style="display: flex; flex-direction:row; justify-content:space-between;">
+                <div style="border: 0px solid gray;border-radius:4px; background-color:#f3f3f3;
+                width:70%;padding-top:2%">
+                    <div class="main_form">
+                        <div>
+                            <h3 style="font-family: 'Ubuntu', sans-serif;padding-bottom:12px;color:rgb(71, 70, 70)">Owner Info</h3>
+                            <form action="formsubmission/" method="POST" enctype='multipart/form-data'>
+                                
+                                <!-- OWNER~NAME -->
+                                <label for="ownername">
+                                    <span style="opacity: .4;">OWNER NAME</span>
+                                    <span style="color:red">*</span>
+                                </label><br>
+                                <input type="text" name="ownername" class="" placeholder="Enter Owner name..." required><br>
+
+                                <!-- RESTAURANT~NAME -->
+                                <label for="restaurantname">
+                                    <span style="opacity: .4;">RESTAURANT NAME</span>
+                                    <span style="color:red">*</span>
+                                </label><br>
+                                <input type="text" name="restaurantname" class="" placeholder="Enter Restaurant name..." required><br>
+
+                                <!-- PERSONAL~NUMBER -->
+                                <label for="ownernumber">
+                                    <span style="opacity: .4;">PERSONAL NUMBER</span>
+                                    <span style="color:red">*</span>
+                                </label><br>
+                                <input type="text" name="ownernumber" id="" placeholder="Enter Personal number..." required><br>
+
+                                <!-- HOTEL~STATUS -->
+                                <label for="status">
+                                    <span style="opacity: .4;">HOTEL STATUS</span>
+                                    <span style="color:red">*</span>
+                                </label><br>
+                                <div style="display: flex; flex-direction:row;justify-content:flex-start;">
+                                    <div>
+                                        <label for="status"><span style="opacity: .7;font-family:Arial, Helvetica, sans-serif;letter-spacing:1px;">This place is already open.</span></label>
+                                        <input type="radio" name="status" id="" value="This place is already open." checked="">
+                                    </div>
+                                    <div style="margin-left: 10%;">
+                                        <label for="status">
+                                            <span style="opacity: .7;font-family:Arial, Helvetica, sans-serif;letter-spacing:1px;">This place is opening soon.</span>
+                                        </label>
+                                        <input type="radio" name="status" id="" value="This place is opening soon.">
+                                    </div>
+                                </div><br>
+                                
+                                <!-- LOCATION~INFO -->
+                                <h3 style="font-family: 'Ubuntu', sans-serif;padding-bottom:12px;color:rgb(71, 70, 70)">Location Info</h3>
+
+                                <!-- CITY -->
+                                <label for="city">
+                                    <span style="opacity: .4;">CITY</span>
+                                    <span style="color:red">*</span>
+                                </label><br>
+                                <input type="text" name="city" id="ip" placeholder="Enter City..." required><br>
+
+                                <!-- STATE -->
+                                <label for="state">
+                                    <span style="opacity: .4;">STATE</span>
+                                    <span style="color:red">*</span>
+                                </label><br>
+                                <input type="text" name="state" id="ip" placeholder="Enter State..." required><br>
+
+                                <!-- LOCATION -->
+                                <label for="location">
+                                    <span style="opacity: .4;">LOCATION</span>
+                                    <span style="color:red">*</span>
+                                </label><br>
+                                <textarea name="location" id="" cols="30" rows="10" placeholder="Enter Location..." required></textarea>
+                                <br>
+
+                                <!-- CHARACTERISTICS -->
+                                <h3 style="font-family: 'Ubuntu', sans-serif;padding-bottom:12px;color:rgb(71, 70, 70)">Characteristics</h3>
+
+                                <!-- ALCOHOL -->
+                                <label for="alcohol">
+                                    <span style="opacity: .4;">ALCOHOL</span>
+                                    <span style="color:red">*</span>
+                                </label><br>
+                                <div style="display: flex; flex-direction:row;justify-content:flex-start;">
+                                    <div>
+                                        <label for="alcohol"><span style="opacity: .7;font-family:Arial, Helvetica, sans-serif;letter-spacing:1px;">Serves Alcohol</span></label>
+                                        <input type="radio" name="alcohol" id="" value="Serves Alcohol">
+                                    </div>
+                                    <div style="margin-left: 10%;">
+                                        <label for="alcohol">
+                                            <span style="opacity: .7;font-family:Arial, Helvetica, sans-serif;letter-spacing:1px;">Doesn't Serves Alcohol</span>
+                                        </label>
+                                        <input type="radio" name="alcohol" id="" value="Doesn't Serves Alcohol"  checked="checked">
+                                    </div>
+                                </div><br>
+
+                                <!-- SERVICES -->
+                                <label for="services">
+                                    <span style="opacity: .4;">SERVICES</span>
+                                    <span style="color:red">*</span>
+                                </label><br>
+                                <div style="display:flex; flex-direction:row; justify-content:space-between">
+                                    <div>
+                                        <input type="checkbox" name="breakfast" id="">
+                                        <label for="breakfast" style="opacity: .7;font-family:Arial, Helvetica, sans-serif;letter-spacing:1px;">Breakfast</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="lunch" id="">
+                                        <label for="lunch" style="opacity: .7;font-family:Arial, Helvetica, sans-serif;letter-spacing:1px;">Lunch</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="dinner" id="">
+                                        <label for="dinner" style="opacity: .7;font-family:Arial, Helvetica, sans-serif;letter-spacing:1px;">Dinner</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="cafe" id="">
+                                        <label for="cafe" style="opacity: .7;font-family:Arial, Helvetica, sans-serif;letter-spacing:1px;">Cafe</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="nightlife" id="">
+                                        <label for="nightlife" style="opacity: .7;font-family:Arial, Helvetica, sans-serif;letter-spacing:1px;">Nightlife</label>
+                                    </div>
+                                </div><br>
+
+                                <!-- CUISINES-->
+                                <label for="cuisines">
+                                    <span style="opacity: .4;">CUISINES</span>
+                                </label><br>
+                                <textarea name="cuisines" id="" cols="30" rows="10" placeholder="Enter type of cuisines you offer..."></textarea><br>
+
+                                <!-- CONTACT~INFORMATION -->
+                                <h3 style="font-family: 'Ubuntu', sans-serif;padding-bottom:12px;color:rgb(71, 70, 70)">Contact Information</h3>
+
+                                <div style="display: flex; flex-direction:row; justify-content:space-between;">
+                                    <div style="width: 50%;">
+                                        <label for="email">
+                                            <span style="opacity: .4;">RESTAURANT EMAIL</span>
+                                        </label><br>
+                                        <input type="text" name="email" id="" placeholder="Enter Restaurant email...">
+                                    </div>
+                                    <div style="width: 50%;">
+                                        <label for="phone">
+                                            <span style="opacity: .4;">RESTAURANT NUMBER</span>
+                                        </label><br>
+                                        <input type="text" name="phone" id="" placeholder="Enter Restaurant number...">
+                                    </div>
+                                </div><br>
+
+                                <h3 style="font-family: 'Ubuntu', sans-serif;padding-bottom:12px;color:rgb(71, 70, 70)">Images</h3>
+                                <!-- IMAGES -->
+                                <label for="image">
+                                    <span style="opacity: .4;">YOUR RESTAURANT DISPLAY IMAGE</span>
+                                    <span style="color:red">*</span>
+                                </label>
+                                <input type="file" name="image" id="image_file" accept=".jpg, .jpeg, .png" required style="border: none;padding-left:0px;">
+
+                                <!-- ADD BUTTON -->
+                                <button type="submit" class="btn btn-success">Add Restaurent</button>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-right: 3%;">
+                    <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
+                        <div class="card-header">Header</div>
+                        <div class="card-body">
+                        <h5 class="card-title">Warning card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br><br>
+{% endblock content %}
+
+{% block script %}
+    <script>
+        
+    </script>
+{% endblock script %}

@@ -1,16 +1,197 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}
     <title>Home-Page</title>
 {% endblock title %}
 
+{% block css %}
+    <style>
+        input[type=text]:focus{
+            border: none;
+            outline: 1px solid orange;     /* oranges! yey */
+          }
+    </style>
+{% endblock css %}
+
 {% block content %}
     {% include 'navbar.html' %}
-    Home-Page
+    <div class="jumbotron" style="margin-bottom: 0px;">
+        <h1 class="display-4">Hello, Foodie's 🤩!</h1>
+        <p class="lead" style="font-size:24px; letter-spacing:1px">I’m local, all natural, homemade and certified organic: wanna taste?</p>
+        <hr class="my-4">
+        <p>Popcorn for breakfast! Why not? It's a grain. It's like, like, grits, but with high self-esteem.😂</p>
+        <a class="btn btn-primary btn-lg" role="button">Order Now</a>
+      </div>
+
+    <div style="margin-left:36px;display:flex;flex-direction:row; justify-content:space-evenly;" id="main">
+        <div>
+            <h1 id="heading" style="margin-top:60px;">Welcome, Foodies.</h1>
+            <h2 style="font-size: 24px;font-weight: 300;width: 600px;margin-top: 0;margin-bottom: 0;line-height: 40px;letter-spacing: -.3px;color: #686b78;border-radius:0px;">Order food from favourite restaurants near you.</h2>
+
+            <div style="padding-top: 30px;">
+                <form action="" method="post">
+                    
+                    <input type="text" name="search" id="search_location" placeholder="Enter your location ...." style="width: 350px; height:45px; padding-left:20px;margin-right:0px;
+                    caret-color:rgb(231, 96, 17);color:rgb(226, 120, 59); font-size:larger; font-weight:lighter;">
+
+                    <button style="height: 44px;border:none;
+                    outline:1px solid rgb(204, 106, 50); background-color:rgb(224, 129, 20); color:white;font-weight:bold; font-size:19px;margin-left:0px">FIND RESTAURANTS</button>
+
+                </form>
+            </div>
+
+            <div id="login_show"></div>
+
+            <div id="search_result" style="width: 350px;">
+                
+            </div>
+        </div>
+        <div>
+            <img src="{% static 'images/food1.jpg' %}" alt="" height="500px"> 
+        </div>
+    </div>
+
+    <hr style="margin-top: 0rem;margin-bottom: 2rem;border: 0;border-top: 0.2px solid rgba(0,0,0,.1);">
+
+      <div>
+        <h2 style="text-align:center;font-family: 'Ubuntu', sans-serif;font-weight:bold;font-size:32px;letter-spacing:4px;">How Foodie Corner works</h2>
+        <p style="text-align:center;font-family: 'Ubuntu', sans-serif; font-size:20px;">Ordering food online has never been this easy</p>
+        <br> <br> <br>
+
+        <div style="display: flex;flex-direction:row; justify-content:space-evenly;">
+            <div>
+                <img src="{% static 'images/restaurant.png' %}" alt="" height="175px" width="175px">
+                <p style="text-align: center;padding-top:18px;"><b>Explore restaurants</b> that <br> deliver to your doorstep</p>
+            </div>
+            <div>
+                <img src="{% static 'images/menu.png' %}" alt="" height="175px" width="175px">
+                <p style="text-align: center;padding-top:18px;">Browse menus and <b>build <br> your order </b>in seconds</p>
+            </div>
+            <div>
+                <img src="{% static 'images/buisness.png' %}" alt="" height="175px" width="175px">
+                <p style="text-align: center;padding-top:18px;"><b>Start buisness</b> with <br> foodie corner 😚</p>
+            </div>
+        </div> <br>
+
+        <hr style="margin-top: 2rem;margin-bottom: 0rem;border: 0;border-top: 0.2px solid rgba(0,0,0,.1);">
+
+        <div style="background-color: #212529;padding-top:20px; padding-bottom:5px;padding-left:5%;padding-right:5%">
+            <div>
+                <div style="color: white;">
+                    <img src="{% static 'images/FoodIcon.png' %}" alt="" height="80px" width="80px"> 
+                    <span style="color:white;margin-left:70%;font-family: 'Yanone Kaffeesatz', sans-serif;font-size:41.25px;letter-spacing:4px;color:yellow;">F<span style="color:red;">OO</span>DIE C<span style="color:red;">O</span>RNER</span>
+                </div>
+            </div>
+            <hr style="margin-top: 1rem;margin-bottom: 1rem;border: 0;border-top: 0.2px solid rgba(247, 231, 231, 0.596);">
+
+            <div style="display: flex; flex-direction:row; justify-content:space-between;align-items:flex-start">
+                <div>
+                    <p style="color:wheat;font-size:20px;margin-bottom:0;">For Restaurants</p>
+                    <div style="text-align:left; margin-left:0.2%">
+                        <a href="restaurant/addrestaurant/" style="text-decoration: none;font-size:14px;">Add a Restaurant</a> <br>
+                        <a href="" style="text-decoration: none;font-size:14px;">Visit your Restaurant</a> <br>
+                        <a href="" style="text-decoration: none; font-size:14px;">Stop Working</a> <br>
+                    </div>
+                </div>
+                <div>
+                    <p style="color:wheat;font-size:20px;margin-bottom:0;">About Foodie Corner</p>
+                    <div style="text-align:left; margin-left:0.2%">
+                        <a href="" style="text-decoration: none; font-size:14px;">Checkout Our Blog</a> <br>
+                        <a href="" style="text-decoration: none; font-size:14px;">About Developer</a> <br>
+                    </div>
+                    
+                </div>
+                <div>
+                    <p style="color:wheat;font-size:20px;margin-bottom:0;">Contact Foodie Corner</p>
+                    <div style="text-align:left; margin-left:1%">
+                        <a href="" style="text-decoration: none; font-size:14px;">Any Query</a> <br>
+                        <a href="" style="text-decoration: none; font-size:14px;">Instagram</a> <br>
+                        <a href="" style="text-decoration: none; font-size:14px;">Gmail</a> <br>
+                    </div>
+                </div>
+            </div>
+
+            <hr style="margin-top: 1rem;margin-bottom: 1rem;border: 0;border-top: 0.2px solid rgba(247, 231, 231, 0.596);">
+            
+            <div style="color:white;text-align:center;font-family: 'Yanone Kaffeesatz', sans-serif">
+                <span><b style="letter-spacing:5px; font-size:35px;">GEETANSH GARG 💖</b></span>
+            </div>
+
+            <hr style="margin-top: 1rem;margin-bottom: 1rem;border: 0;border-top: 0.2px solid rgba(247, 231, 231, 0.596);">
+
+            <div style="color: white;text-align:center;">
+                <span style="opacity: 0.6;font-size:10px;margin-top:5%;">
+                    By continuing past this page, you agree to our Terms of Service, Cookie Policy, Privacy Policy and Content Policies. All trademarks are properties of their respective owners © 2020 - Foodie Corner™.
+                </span>
+            </div>
+        </div>
+      </div>
+
 {% endblock content %}
 
 {% block script %}  
     <script>
+
+        user = '{{request.user.is_authenticated}}'
+        if(user == "False"){
+            document.getElementById("search_location").disabled=true;
+            $("#main").css("opacity", "0.8")
+            $("#login_show")[0].innerHTML = `<br><br><br><h4 style="text-align-center;font-family: 'Ubuntu', sans-serif;letter-spacing:2px;">Please, login to use this feature.</h4>`
+        }
+
+        const getRandomNumber = (min, max) => {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+          };
+       lines = ['Late Night at Office?', 'Movie Marathon?', 'Cooking gone wrong?', 'Unexcepted Guests?', 'Hungry?', 'Game Night?']
+       const run = setInterval(function(){
+           $("#heading")[0].innerText = lines[getRandomNumber(0, 5)]
+       }, 2000)
        
+       data = '{{restaurants_json}}'
+       
+       rdata = JSON.parse(data.replace(/&quot;/g, '"'))
+
+       result = []
+
+       $("#search_location").keyup(function(){
+            $("#search_result")[0].innerHTML = "<div style='margin-left: 0px; padding-left:20px;'><ul style='list-style-type: none;margin-top:6px;border-radius:2px;' class='list-group'>"
+            
+            result = rdata.filter(restaurant => restaurant['city'].includes($("#search_location")[0].value.toUpperCase()))
+            
+            final = []
+            var x = 0
+            for(var i=0; i<result.length; i++){
+                var count = 0
+                
+                for(var j=0; j<final.length; j++){
+                    if(result[i].city == final[j]){
+                        count += 1
+                    }
+                }
+                if(count == 0){
+                    final[x] = result[i].city
+                    x+=1
+                }
+            }
+            
+            if(final.length > 0){    
+                if($("#search_location")[0].value == ""){
+
+                }else{
+                    for(var i=0; i<final.length; i++){
+                        $("#search_result")[0].innerHTML += `<li class='list-group-item d-flex justify-content-between align-items-center'><a href='location/${final[i]}/' style='text-decoration: none;'>${final[i]}</a><span class="badge badge-info badge-pill"><svg width="1em" height="1.5em" viewBox="0 0 16 16" class="bi bi-check-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                          </svg></span></li>`
+                    }
+                }
+            }else{
+                $("#search_result")[0].innerHTML = "<li class='list-group-item d-flex justify-content-between align-items-center'>Your location has no delivery services.</li>"
+            }
+       })
+       
+       $("#search_location").focusout(function(){
+           $("#search_result")[0].innerHTML = ""
+       })
+
     </script>
 {% endblock script %}

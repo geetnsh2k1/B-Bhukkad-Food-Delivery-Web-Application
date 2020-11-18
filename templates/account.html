@@ -13,8 +13,13 @@
     <div class="center">
         <div id="header" style="filter: blur(0px); height: 150px; transform: scale(1, 1);"></div>
         <div id="profile">
-            <div >
+            <div>
                 <img class="image" src="{{customer.picture.url}}" alt="">
+
+                <div id="edit_form">
+                    <img class="image" src="{% static 'images/edit2.png' %}" alt="" style="height: 20px;width: 20px;top: 3px;left: 105px;" id="edit_image">
+                </div>
+
             </div>
             <div class="name">
                 {{customer.user.first_name|upper}} {{customer.user.last_name|upper}}
@@ -27,27 +32,61 @@
                 {% if customer.address %}
                     <div id="address_data">
                         <span style="font-family: 'Syne Mono', monospace;
-                        font-size:smaller" id="">{{customer.address}}</span>
-                        <button class="" id="update">Change</button>
+                        font-size:small;" id="">{{customer.address}}</span>
+                        <button class="" id="update_address" style="border:none; margin-left:20px;" title="Edit Address"><img src="{% static 'images/edit.png' %}" alt="" height="15px" width="15px"></button>
                     </div>
                 {% else %}
                     <form action="addaddress/" method="POST">
                         {% csrf_token %}
                         <input type="text" name="address" id="" class="ip" placeholder="" required>
-                        <button type="submit" class="btn"><img src="{% static 'images/add.png' %}" alt="" height="30px" width="30px"></button>
+                        <button type="submit" style="border:none; margin-left:5px;" title="Add Address"><img src="{% static 'images/add.png' %}" alt="" height="20px" width="20px"></button>
                     </form>
                 {% endif %}
             </div>
+            
+            <div class="phone">
+                <img src="{% static 'images/phone.png' %}" height="15px" width="15px" class="material-icons">
+                {% if customer.phone %}
+                    <div id="phone_number">
+                        <span style="font-family: 'Syne Mono', monospace;
+                        font-size:small;margin-left:10px" id="">{{customer.phone}}</span>
+                        <button class="" id="update_phone" style="border:none; margin-left:20px;" title="Edit Phone-Number"><img src="{% static 'images/edit.png' %}" alt="" height="15px" width="15px"></button>
+                    </div>
+                {% else %}  
+                    <form action="addphone/" method="POST">
+                        {% csrf_token %}
+                        <input type="number" name="phone" id="" class="ip" placeholder="" required>
+                        <button type="submit" style="border:none; margin-left:5px;" title="Add Phone-Number"><img src="{% static 'images/add.png' %}" alt="" height="20px" width="20px"></button>
+                    </form>
+                {% endif %}
+            </div>
+
+            <div class="bottom">
+                <span style="float: right;margin-right:20px"><strong><a href="viewprofile/" id="view_profile">RETURN TO PROFILE</a></strong></span>
+            </div>
+
         </div>
     </div>
 {% endblock content %}
-
+    
 {% block script %}
     <script>
 
         //my js
-        $("#update").click(function(){
-            $("#address_data")[0].innerHTML="<form action='updateaddress/' method='post'><input type='text' name='newaddress' id=''><button type='submit'>Submit</button></form>"
+        $("#update_address").click(function(){
+            $("#address_data")[0].innerHTML="<form action='updateaddress/' method='post'><input type='text' name='newaddress' id=''><button type='submit' style='border:none; margin-left:20px;' title='Submit'><img src='{% static 'images/correct.jpg' %}' alt='' height='15px' width='15px'></button></form>"
+        })
+
+        $("#update_phone").click(function(){
+            $("#phone_number")[0].innerHTML="<form action='updatephone/' method='post'><input type='text' name='newphone' id=''><button type='submit' style='border:none; margin-left:20px;' title='Submit'><img src='{% static 'images/correct.jpg' %}' alt='' height='15px' width='15px'></button></form>"
+        })
+
+        $("#edit_image").click(function(){
+            $("#edit_form")[0].innerHTML = `<form action='editimage/' method='post' enctype='multipart/form-data'>
+                <input type='file' name='image' id='newimage' title='Choose new profile image' accept='image/*'>
+                <button type='submit' style='border:none; margin-left:20px;' title='Submit'>
+                    <img src='{% static 'images/correct.jpg' %}' alt='' height='15px' width='15px'>
+                </button></form>`
         })
 
         const header = document.getElementById('header');

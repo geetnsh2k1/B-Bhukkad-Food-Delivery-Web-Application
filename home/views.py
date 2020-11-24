@@ -5,10 +5,11 @@ from django.contrib import messages
 import json
 from home.models import Customer
 from django.http import JsonResponse
-from food_items.models import Restaurant, Item, Owner
+from food_items.models import Restaurant, Item, Owner, Location
 import os
 from Food_Delievery.settings import MEDIA_ROOT
 from todo.models import Task
+import datetime
 
 # Create your views here.
 def home(request):
@@ -21,7 +22,7 @@ def home(request):
 
             count = 0
 
-            restaurants_json = json.dumps(list(Restaurant.objects.values()))
+            location_json = json.dumps(list(Location.objects.values()))
             restaurants = Restaurant.objects.all()
 
             if customer.phone == None or customer.phone == "":
@@ -33,7 +34,7 @@ def home(request):
             else:
                 pass
 
-            return render(request, 'home.html', {'count':count, 'restaurants':restaurants, 'restaurants_json':restaurants_json})
+            return render(request, 'home.html', {'count':count, 'restaurants':restaurants, 'location_json':location_json})
         else:
             pass
     except Exception as e:
@@ -171,9 +172,19 @@ def viewprofile(request):
                 owner = Owner.objects.get(user=user)
                 try:
                     restaurant = Restaurant.objects.get(owner=owner)
-                    return render(request, 'profile.html', {'customer':customer, 'count':count, 'owner':owner, 'restaurant':restaurant})                
-                except:
-                    owner.delete()
+                    items = Item.objects.filter(restaurant=restaurant)
+                    status = False
+                    try:
+                        print(restaurant.opened, type(restaurant.opened))
+                        today = datetime.date.today()
+                        if today == restaurant.opened:
+                            status = True
+                    except Exception as e:
+                        print(e)
+                    return render(request, 'profile.html', {'status':status, 'customer':customer, 'count':count, 'owner':owner,'restaurant':restaurant, 'items':items})                
+                except Exception as e:
+                    print(e)
+                    # owner.delete()
                     return render(request, 'profile.html', {'customer':customer, 'count':count, 'owner':owner})                
             except:
                 pass
@@ -287,7 +298,18 @@ def viewprofile2(request):
 # make it for working of specific location and find it;s restaurants
 def handlelocation(request, location):
     print(location)
-    return redirect('home')
+    restaurants = Restaurant.objects.filter(city=location)
+    return render(request, 'location.html', {'location':location, 'restaurants':restaurants})
+
+def handlelocationrestaurant(request, location, restaurant):
+    try:
+        rest = Restaurant.objects.get(name=restaurant)
+        items = Item.objects.filter(restaurant=rest)
+        return render(request, 'locationrestaurant.html', {'restaurant':rest, 'items':items})
+    except Exception as e:
+        print(e, 'error')
+        messages.error(request, 'An unexcepted error occured while loading the restaurant.')
+        return redirect('home')
 
 def acceptrestaurant(request):
     if request.method == "POST":
@@ -342,6 +364,33 @@ def removecustomer(request):
                 pass
         except:
             pass
+    else:
+        pass
+    return redirect('profile')
+
+def additem(request):
+    if request.method == "POST":
+        try:
+            username = request.user.username
+            user = User.objects.get(username=username)
+            owner = Owner.objects.get(user=user)
+            restaurant = Restaurant.objects.get(owner=owner)
+
+            name = request.POST['name']
+            description = request.POST['description']
+            price = request.POST['price']
+            cuisine = request.POST['cuisine']
+            image = request.FILES['image']
+
+            newitem = Item.objects.create(name=name, description=description, price=price, cuisine=cuisine, image=image)
+
+            newitem.restaurant.add(restaurant)
+
+            newitem.save()
+
+            messages.success(request, 'item successfully added.')
+        except Exception as e:
+            print(e)
     else:
         pass
     return redirect('profile')

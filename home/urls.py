@@ -4,7 +4,8 @@ from home import views
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('location/<str:location>/', views.handlelocation),
+    path('location/<str:location>/', views.handlelocation, name='location'),
+    path('location/<str:location>/<str:restaurant>', views.handlelocationrestaurant),
     path('login/', views.handlelogin),
     re_path(r'[a-zA-Z0-9/!@#$%^&*]*logout[a-zA-Z0-9/!@#$%^&*]*', views.handlelogout),
     path('signup/', views.handlesignup),
@@ -20,6 +21,8 @@ urlpatterns = [
 
     path('viewprofile/accept/', views.acceptrestaurant),
     path('viewprofile/reject/', views.rejectrestaurant),
+
+    path('viewprofile/additem/', views.additem),
 
     path('viewprofile/removerestaurant/', views.removerestaurant),
     path('viewprofile/removecustomer/', views.removecustomer),

@@ -262,14 +262,14 @@
                     <td style="border: none;">
                       <form action="accept/" method="POST">
                         {% csrf_token %}
-                        <input type="hidden" name="restaurantname" value="{{restaurant.name}}">
+                        <input type="hidden" name="name" value="{{restaurant.name}}">
                         <button type="submit" class="btn btn-group btn-success">Accept</button>
                       </form>
                     </td>
                     <td style="border: none;">
                       <form action="reject/" method="POST">
                         {% csrf_token %}
-                        <input type="hidden" name="restaurantname" value="{{restaurant.name}}">
+                        <input type="hidden" name="name" value="{{restaurant.name}}">
                         <button type="submit" class="btn btn-group btn-danger">Reject</button>
                       </form>
                     </td>

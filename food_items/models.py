@@ -3,15 +3,6 @@ from django.contrib.auth.models import User
 import datetime
 
 # Create your models here.
-class Item(models.Model):
-    name = models.CharField(max_length=100, null=False, blank=False)
-    description = models.TextField(null=True, blank=True)
-    price = models.FloatField()
-    image = models.ImageField(blank=False)
-
-    def __str__(self):
-        return self.name
-
 class Owner(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     restaurant_name = models.CharField(max_length=100)
@@ -31,7 +22,6 @@ class Restaurant(models.Model):
     city = models.CharField(max_length=100, default="")
     state = models.CharField(max_length=100, default="")
     location = models.TextField()
-    items = models.ManyToManyField(Item, related_name='items', null=True, blank=True)
     services = models.CharField(max_length=100, default="BREAKFAST LUNCH DINNER CAFE NIGHTLIGHT")
     alcohol = models.BooleanField(default=False)
     cuisines = models.CharField(max_length=200, default="")
@@ -40,3 +30,17 @@ class Restaurant(models.Model):
 
     def __str__(self):
         return self.name
+
+class Item(models.Model):
+    name = models.CharField(max_length=100, null=False, blank=False)
+    description = models.TextField(null=True, blank=True)
+    price = models.FloatField()
+    image = models.ImageField(blank=False)
+    cuisine = models.CharField(max_length=100, blank=True, null=True)
+    restaurant = models.ManyToManyField(Restaurant, related_name='restaurant', null=True)
+    def __str__(self):
+        return self.name
+
+class Location(models.Model):
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)

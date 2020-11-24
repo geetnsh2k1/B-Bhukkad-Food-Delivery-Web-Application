@@ -6,6 +6,15 @@
 
 {% block css %}
     <style>
+      .form-control:focus {
+        border-color: inherit;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      .item::-webkit-input-placeholder {
+        color: #790c5a !important;
+        opacity:0.5;
+        }
 
       .sidebarbtn:hover{
         color:blue;
@@ -243,14 +252,16 @@
 
   <!-- messages display -->
   {% if messages %}
-  {% for message in messages %}
-      <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert" style="text-align: center;">
-          <strong style="text-align: center; letter-spacing:5px">{{message|title}}</strong>
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-          </button>
-      </div>
-  {% endfor %}
+  <div style="margin-top:82px;">
+    {% for message in messages %}
+        <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert" style="text-align: center;">
+            <strong style="text-align: center; letter-spacing:5px">{{message|title}}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+  </div>
   {% endif %}
 
   {% if request.user.is_superuser %}

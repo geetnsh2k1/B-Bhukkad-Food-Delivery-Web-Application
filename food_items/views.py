@@ -1,7 +1,7 @@
 from django.shortcuts import render ,redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from food_items.models import Item, Restaurant, Owner
+from food_items.models import Item, Restaurant, Owner, Location
 from django.contrib.auth.models import User
 import json
 
@@ -91,6 +91,9 @@ def addrestaurantform(request):
 
             newrestaurant = Restaurant.objects.create(name=restaurantname, image=image, owner=newowner, email=email, number=restaurantnumber, city=city, state=state, location=location, services=services, alcohol=alcohol, cuisines=cuisines)
             newrestaurant.save()
+
+            newlocation = Location.objects.create(city=city, state=state)
+            newlocation.save()
 
             messages.success(request, 'thank you, you will be updated soon.')
 

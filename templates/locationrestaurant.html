@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>{{restaurant.name}}</title>
+{% endblock title %}
+
+{% block css %}
+    <style>
+        .link{
+            color: rgb(197, 193, 193);
+        }
+        .link:hover{
+            color: grey;
+        }
+    </style>
+{% endblock css %}
+
+{% block content %}
+    
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+        <a class="navbar-brand">Navbar</a>
+        <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </nav>
+
+    <div style="width: 100%;height:25px;background-color:#f7f7f7;padding-left:8%;">
+        <a href="/" class="link" style="font-size: 14px;">Home</a><span style="opacity: 0.5;">/</span><a class="link" href="http://127.0.0.1:8000/location/{{restaurant.city|upper}}" style="font-size: 14px;">{{restaurant.city|title}}</a><span style="opacity: 0.5;">/</span><span style="font-size: 14px;opacity:0.9">{{restaurant.name}}</span>
+    </div>
+
+    <div style="background-color:rgb(24, 23, 23);color:white;width:100%;display:flex;flex-direction:row;justify-content:space-between;padding:2% 6% 2% 6%;">
+        
+        <div id="reimage" style="border: 0.1px solid rgba(250, 240, 240,0.3);">
+            <abbr title="{{restaurant.name}}" style="cursor:pointer;">
+                <img id="rimage" style="padding:6%;transition: padding 1s, transform 1s;height:160px;width:260px" src="{{restaurant.image.url}}" alt="">
+            </abbr>
+        </div>
+
+        <div style="text-align: left;">
+            <h1 style="letter-spacing: 2px;font-size:32px">{{restaurant.name|upper}}</h1>
+            <span style="opacity: 0.7;">Open</span><span style="padding-left:60px;opacity:0.5">{{restaurant.cuisines|upper}}</span>
+            <p style="margin-top:10px;opacity:0.8;font-size:12px;">{{restaurant.location|title}}, {{restaurant.city|title}}, {{restaurant.state|title}}</p>
+            
+            <div style="display: flex; flex-direction:row; justify-content:space-between">
+
+                <div>
+                    {% if restaurant.alcohol %}
+                        <abbr title="Alcohol Available">
+                            <img src="{% static 'images/alcohol.png' %}" alt="" height="40px" width="40px">
+                        </abbr>
+                    {% else %}
+                        <abbr title="No Alcohol">
+                            <img src="{% static 'images/noalcohol.png' %}" alt="" height="40px" width="40px">
+                        </abbr>
+                    {% endif %}
+                </div>
+
+                <div style="margin-top: 5px;">
+                    <span style="opacity: 0.4;font-size:12px">OFFER'S {{restaurant.services|upper}}</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div style="margin-top: 0px;">
+    
+            <div style="border: 1px solid rgba(255,255,255,0.5);position:relative;top:13px;padding:5% 0% 5% 5%;font-family: 'Satisfy', cursive;font-size:14.5px;letter-spacing:2px;opacity:0.8">
+                <img src="{% static 'images/discount.png' %}" alt="" height="20px" width="20px" style="background-color: white;border-radius:10px;"> 20% off | Use code new20<br>
+                <img src="{% static 'images/discount.png' %}" alt="" height="20px" width="20px" style="background-color: white;border-radius:10px;"> 30% off | Use code new30 <br>
+                <!-- <img src="{% static 'images/discount.png' %}" alt="" height="20px" width="20px" style="background-color: white;border-radius:10px;"> 40% off | Use code new40  -->
+            </div>
+
+            <div style="position: absolute;background-color:#181717;padding-right:6px;font-weight:bold;letter-spacing:2px;font-size:18px;">OFFER</div>
+
+        </div>
+
+    </div>
+
+{% endblock content %}
+
+{% block script %}
+    <script>
+        $("#rimage").mouseover(function(){
+            $("#rimage").css("padding", "0")
+        })
+        $("#rimage").mouseout(function(){
+            $("#rimage").css("padding", "6%")
+        })
+    </script>
+{% endblock script %}

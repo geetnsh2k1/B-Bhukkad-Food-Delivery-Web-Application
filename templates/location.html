@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+
+{% endblock css %}
+
+{% block content %}
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+        </ul>
+        </div>
+    </nav>
+
+    <div style="display:flex;flex-direction:row;justify-content:space-evenly;background-color: #a5ecd7;height:100%;width:100%;color:white;padding:2%;">
+        
+        <div>
+            <img style="transition: width 1s, height 1s, transform 1s;border:0px solid transparent; border-radius:4px;" src="{% static 'images/food_display.jpg' %}" class="transition1" alt="" height="175px" width="175px">
+        </div>
+
+        <div>
+            <img style="transition: width 1s, height 1s, transform 1s;border:0px solid transparent; border-radius:4px;" src="{% static 'images/food_display5.jpg' %}" class="transition2" alt="" height="200px" width="200px">
+        </div>
+
+        <div>
+            <img style="transition: width 1s, height 1s, transform 1s;border:0px solid transparent; border-radius:4px;" src="{% static 'images/food_display2.jpg' %}" class="transition3" alt="" height="200px" width="200px">
+        </div>
+
+        <div>
+            <img style="transition: width 1s, height 1s, transform 1s;border:0px solid transparent; border-radius:4px;" src="{% static 'images/food_display3.jpg' %}" class="transition4" alt="" height="200px" width="200px">
+        </div>
+
+        <div>
+            <img style="transition: width 1s, height 1s, transform 1s;border:0px solid transparent; border-radius:4px;" src="{% static 'images/food_display4.jpg' %}" class="transition5" alt="" height="200px" width="200px">
+        </div>
+
+    </div>
+
+    <div style="margin-top: 0%;"></div>
+
+    <aside style="width:22%;position:absolute;margin:2%;border-radius:0px; display:flex; flex-direction:column;background-color:#f1f3f8;padding:8px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+        
+        <div align="center" style="margin: 5%;font-size:42px;letter-spacing:1px;font-family: 'Indie Flower', cursive;text-decoration:underline;color:#393b44;font-weight:bold;">Food Facts</div>
+
+        <div style="color:#3d7ea6;background-color: #fcdada;margin-bottom:10%;border-radius:10px;font-family: 'Nerko One', cursive;font-size:24px;font-weight:400;padding:5%;">
+            <abbr title="'Ever notice how saltine crackers or Goldfish become sticky in your mouth as you're chewing them?' Dr. Mark Burhenne of Askthedentist.com said. 'Even better for the bacteria, that sticky goo gets stuck between your teeth and the bacteria can feast for even longer.'" style="text-decoration: none;cursor:pointer;">Crackers will give you cavities faster than candy.</abbr>
+        </div>
+        
+        <div style="background-color: #fadcaa;color:#c56183;margin-bottom:10%;border-radius:10px;font-family: 'Nerko One', cursive;font-size:24px;font-weight:400;padding:5%;">
+            <abbr title="Did you ever wonder how gummy candies get that glossy sheen? They're coated with carnauba wax, the same stuff that is used on cars to make them shiny." style="text-decoration: none;cursor:pointer;">Fruit snacks and cars are coated in the same type of wax.</abbr>
+        </div>
+
+        <div style="background-color: #ffefa0;color:#ac4b1c;margin-bottom:10%;border-radius:10px;font-family: 'Nerko One', cursive;font-size:24px;font-weight:400;padding:5%;">
+            <abbr title="When Boeing wanted to test out its wireless signal on new planes in 2012, they placed giant piles of potatoes on seats. Because of their high water content and chemical makeup, potatoes absorb and reflect radio and wireless signals just like humans do." style="text-decoration: none;cursor:pointer;">Potatoes can absorb and reflect Wi-fi signals.</abbr>
+        </div>
+
+        <div style="background-color: #f5efef;color:#9d65c9;margin-bottom:10%;border-radius:10px;font-family: 'Nerko One', cursive;font-size:24px;font-weight:400;padding:5%;">
+            <abbr title="Ears of corn generally have an even number of rows, which is usually 16." style="text-decoration: none;cursor:pointer;">A typical ear of corn has an even number of rows.</abbr>
+        </div>
+    </aside>
+    
+    <div style="width: 73%;margin-left:26%;margin-top:2%;position:relative;background-color:#e1ffc2;border-radius:0px;">
+        <div align="left" style="padding:2.4%;font-size:42px;letter-spacing:4px;text-decoration:underline;color:#092532;margin-left:2.4%;font-family: 'Maven Pro', sans-serif;font-weight:bold;">Available Restaurants</div>
+        {% if restaurants %}
+            <div style="display: flex;flex-direction:row;justify-content:space-evenly;padding-top:20px;">
+                {% for restaurant in restaurants %}
+                    <div>
+                        <div class="card" style="width: 16rem;">
+                            <img style="padding:20px 20px 0px 20px;" src="{{restaurant.image.url}}"class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h4 style="font-family: 'Josefin Sans', sans-serif;font-weight:bold;letter-spacing:2px;margin-block-start: 0;
+                                margin-block-end:0;" class="card-title">{{restaurant.name}}</h4>
+                                <p style="font-family: 'Open Sans Condensed', sans-serif;" class="card-text">{{restaurant.services|title}} <br> {{restaurant.cuisines|title}}</p>
+
+                                <hr>
+                                <div style="display: flex;flex-direction:row;justify-content:space-between;opacity:0.7;">
+                                    <div style="background-color: green;padding-left:5px;border:0px solid transparent;border-radius:2px;">
+                                        <span style="color:white;">5<svg style="    margin-bottom: 5px;" width="2em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="white" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                        </svg></span>
+                                    </div>
+
+                                    <div style="background-color: #db6400;padding:2px;border:0px solid transparent;border-radius:2px;">
+                                        <span style="color: #f8f1f1;font-family: 'Nerko One', cursive;text-transform:uppercase;">Best Deals</span>
+                                    </div>
+
+                                    <div>
+                                        {% if restaurant.alcohol %}
+                                            <abbr style="cursor: pointer;" title="Alcohol available"><img src="{% static 'images/alcohol.png' %}" alt="" style="height: 25px;width:25px;"></abbr>
+                                        {% else %}
+                                            <abbr style="cursor: pointer;" title="No alcohol"><img src="{% static 'images/noalcohol.png' %}" alt="" style="height: 25px;width:25px;"></abbr>
+                                        {% endif %}
+                                    </div>
+
+                                </div>
+
+                                <div align="center" class="quick_view">
+                                    <hr>
+                                    <a href="{{restaurant.name}}" class="btn btn-outline-info">Quick View</a>
+                                </div>
+
+                            </div>
+                        </div><br>
+                    </div>
+                {% if forloop.counter|divisibleby:3 %}
+                    </div><hr>
+                    <div style="display: flex;flex-direction:row;justify-content:space-evenly;">
+                {% endif %}
+            {% endfor %}
+            </div>
+        {% else %}
+            no restaurants at this location
+        {% endif %}
+    </div>
+
+    <br><br><br><br><br><br>
+{% endblock content %}
+
+{% block script %}
+    <script>
+
+        $(".transition1").mouseover(function(){
+            $(".transition1").css("width", "250px")
+            $(".transition1").css("height", "250px")
+        })
+        $(".transition1").mouseout(function(){
+            $(".transition1").css("width", "200px")
+            $(".transition1").css("height", "200px")
+        })
+        $(".transition2").mouseover(function(){
+            $(".transition2").css("width", "250px")
+            $(".transition2").css("height", "250px")
+        })
+        $(".transition2").mouseout(function(){
+            $(".transition2").css("width", "200px")
+            $(".transition2").css("height", "200px")
+        })
+        $(".transition3").mouseover(function(){
+            $(".transition3").css("width", "250px")
+            $(".transition3").css("height", "250px")
+        })
+        $(".transition3").mouseout(function(){
+            $(".transition3").css("width", "200px")
+            $(".transition3").css("height", "200px")
+        })
+        $(".transition4").mouseover(function(){
+            $(".transition4").css("width", "250px")
+            $(".transition4").css("height", "250px")
+        })
+        $(".transition4").mouseout(function(){
+            $(".transition4").css("width", "200px")
+            $(".transition4").css("height", "200px")
+        })
+        $(".transition5").mouseover(function(){
+            $(".transition5").css("width", "250px")
+            $(".transition5").css("height", "250px")
+        })
+        $(".transition5").mouseout(function(){
+            $(".transition5").css("width", "200px")
+            $(".transition5").css("height", "200px")
+        })
+    </script>
+{% endblock script %}

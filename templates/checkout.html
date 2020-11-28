@@ -1,0 +1,380 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Checkout Page</title>
+{% endblock title %}
+
+{% block css %}
+    <style>
+        input[type=text]:focus{
+            outline: 1px solid red;
+            border-radius: 5px;     /* oranges! yey */
+          }
+        #promo:hover{
+            color:red;
+        }
+    </style>
+{% endblock css %}
+
+{% block content %}
+    <nav style="display: flex;flex-direction:row;justify-content:space-between;padding:0% 10% 0 10%;background-color:rgb(252, 252, 252)" class="navbar navbar-dark bg-dark;">
+            <div>
+                <a class="navbar-brand" href="/">
+                    <img src="{% static 'images/foodIcon.png' %}" width="70" height="70" alt="" loading="lazy">
+                </a>
+            </div>
+            <div>
+                <h1 style="font-family: 'Fredoka One', cursive;letter-spacing:8px;font-size:48px;opacity:1;color:rgb(62, 146, 146)">B-BHUKKAD</h1>
+            </div>
+
+            <div>   
+                <img src="{% static 'images/pizzaicon.png' %}" alt="" height="40" width="40" style="margin-bottom: 5px;">
+                <span style="font-family: 'Nunito', sans-serif; font-size:20px;text-transform:uppercase;padding-left:5px;color:rgb(8, 27, 68);"><b>{{request.user.first_name}}</b></span>
+            </div>
+    </nav>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert" style="text-align: center;letter-spacing:2px;">
+                <strong>{{message}}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div style="margin:3.5% 0% 3.5% 0%;display:flex;flex-direction:row;justify-content:space-evenly;">
+
+        <!-- left side -->
+        <div style="width:55%">
+            <h1 style="font-family: 'Poppins', sans-serif;">Secure Checkout</h1><br>
+            
+            <div style="border: 1px solid lightgrey;padding:2% 4% 2% 4%;border-radius:10px;width:100%;">
+                <span style="font-family: 'Poppins', sans-serif;font-size: 26px;font-weight:500;letter-spacing:2px;">{{request.user.username|title}}</span>
+                <span style="font-size: 24px;opacity:0.7;padding:10px;letter-spacing:1px;">({{request.user.email}})</span><br>
+                <span style="opacity:0.5">You are securely logged in</span>
+            </div>
+
+            <br>
+
+            <div style="border: 1px solid lightgrey;border-radius:10px;padding:2% 4% 2% 4%;width:100%;">
+                
+                <span style="font-family: 'Poppins', sans-serif;font-size: 32px;font-weight:500;letter-spacing:2px;">Delivery Address</span> <hr style="margin-block-end: 0px;">
+
+                <div style="padding-top: 3%;display:flex;flex-direction
+                :row; justify-content:space-between;">
+
+                    <div style="padding-right: 2%;">
+                        <svg style="color:white;" width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-check-circle-fill" fill="rgb(2, 200, 200)" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                        </svg>
+                    </div>
+
+                    <div>
+                        <span id="address" style="font-family: 'Montserrat', sans-serif;opacity:0.7;font-size:18px;padding-left:0%;letter-spacing:2px;text-transform:capitalize">
+                            {% if delivery %}
+                                {% for deliver in delivery %}
+                                    {{deliver.deliveryaddress}}
+                                {% endfor %}
+                            {% else %}
+                                {{customer.address}}
+                            {% endif %}
+
+                        </span>
+                    </div>
+
+                    <div>
+                        <!-- Change button -->
+                        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal" style="border: none;margin-left:15%;margin-bottom:1%">
+                            CHANGE
+                        </button>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 style="font-family: 'Poppins', sans-serif;text-transform:uppercase" class="modal-title" id="exampleModalLabel">Delivery Details</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body">
+                                
+                                <div>
+                                    <h2 style="font-family: 'Montserrat', sans-serif;">Edit Address</h2>
+                                        <p style="opacity: 0.7;font-family: 'Montserrat', sans-serif;">DELIVERY AREA</p>
+                                </div> 
+
+                                <img src="{% static 'images/map2.jpg' %}" alt="" height="200px" width="100%" style="padding-bottom: 2%;">
+
+                                <div>
+
+                                    <form action="" method="POST" style="font-family: 'Montserrat', sans-serif;">
+                                        <div class="form-group">
+                                        <label for="inputAddress">Address</label>
+                                        <input type="text" name="address1" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                                        </div>
+                                        <div class="form-group">
+                                        <label for="inputAddress2">Address 2</label>
+                                        <input type="text" name="address2" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+                                        </div>
+                                        <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputCity">City</label>
+                                            <input type="text" name="city" class="form-control" id="inputCity">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="inputState">State</label>
+                                            <select id="inputState" name="state" class="form-control">
+                                            <option selected>Choose...</option>
+                                            <option>Haryana</option><option>Punjab</option>
+                                            <option>Himachal Pradesh</option><option>Uttrakhand</option>
+                                            <option>Jammu & Kashmir</option><option>Uttar Pradesh</option>
+                                            <option>Bihar</option><option>Maharashtra</option>
+                                            <option>West Bengal</option><option>Madhya Pradesh</option>
+                                            <option>Tamil Nadu</option><option>Rajasthan</option>
+                                            <option>Gujarat</option><option>Odhisa</option>
+                                            <option>Karnataka</option><option>Andhra Pradesh</option>
+                                            <option>Telangana</option><option>Kerala</option>
+                                            <option>Jharkhand</option><option>Assam</option>
+                                            <option>Chattisgarh</option><option>Delhi</option>
+                                            <option>Tripura</option><option>Manipur</option>
+                                            <option>Meghalaya</option><option>Nagaland</option>
+                                            <option>Goa</option><option>Arunachal Pradesh</option>
+                                            <option>Mizoram</option><option>Sikkim</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label for="inputZip">Zip</label>
+                                            <input name="zip" type="text" class="form-control" id="inputZip">
+                                        </div>
+                                        </div>
+                                        <div class="form-row" style="margin-bottom: 5%;">
+                                            <div class="form-check" style="margin-left: 10%;">
+                                                <input class="form-check-input" type="radio" name="typeofaddress" id="exampleRadios1" value="HOME" checked>
+                                                <label class="form-check-label" for="exampleRadios1">
+                                                Home
+                                                </label>
+                                            </div>
+                                            <div class="form-check" style="margin-left: 10%;">
+                                                <input class="form-check-input" type="radio" name="typeofaddress" id="exampleRadios2" value="WORK">
+                                                <label class="form-check-label" for="exampleRadios2">
+                                                Work
+                                                </label>
+                                            </div>
+                                            <div class="form-check" style="margin-left: 10%;">
+                                                <input class="form-check-input" type="radio" name="typeofaddress" id="exampleRadios2" value="HOTEL">
+                                                <label class="form-check-label" for="exampleRadios2">
+                                                Hotel
+                                                </label>
+                                            </div>
+                                            <div class="form-check" style="margin-left: 10%;">
+                                                <input class="form-check-input" type="radio" name="typeofaddress" id="exampleRadios2" value="OTHER">
+                                                <label class="form-check-label" for="exampleRadios2">
+                                                Other
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <div style="text-align: center;">
+                                            <button style="padding:1.5% 15% 1.5% 15%;" type="submit" class="btn btn-danger">Save and proceed</button>
+                                        </div>
+                                        
+                                    </form>
+
+                                </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top:5%;border: 1px solid lightgrey;border-radius:10px;width:100%;">
+                
+                <p style="font-family: 'Poppins', sans-serif;font-size: 32px;font-weight:500;letter-spacing:2px;padding:2% 4% 0% 4%;">Payment Method</p> <hr style="margin-block-end: 0px;">
+
+
+                <div style="background-color: rgb(250, 250, 240);padding:4%;font-family: 'Montserrat', sans-serif;">
+                    <ul style="list-style-type: none;">
+                        <li>
+                            <h4>Only cash on delivery service is available.</h4>
+                            <ul>
+                                <li>
+                                    The customer does not need to own a credit card to purchase.
+                                </li>
+                                <li>
+                                    Impulse purchases may increase as payment is not due at the time of ordering.
+                                </li>
+                                <li>
+                                    The credibility of retailers may be increased because the consumer only has to pay when the item is delivered.
+                                </li>
+                            </ul>
+                        </li>
+                        <br>
+                        <li style="font-weight: bold;">Please keep exact change handy to help us serve you better.</li>
+                    </ul>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <!-- right side -->
+        <div style="width: 35%;margin-right:0%;margin-top:0%;">
+            
+            <h1 style="font-family: 'Poppins', sans-serif;opacity:0.9">Order Summary</h1><br>
+            
+            <div style="border: 1px solid lightgrey;border-radius:4px;width:100%;">
+                
+                <div style="background-color:rgb(250, 250, 240);padding:2% 4% 2% 4%;">
+                    <span style="text-transform:uppercase;letter-spacing:2px;font-size:18px;opacity:0.7;font-family: 'Montserrat', sans-serif;padding-left:2%;">Order From</span><br><div style="margin-bottom: 4%;"></div>
+
+                    <span style="font-size:24px;letter-spacing:4px;font-family: 'Poppins', sans-serif;text-transform:uppercase;padding-left:2%;font-weight:bold">B-Bhukkad</span><br>
+
+                    <span style="opacity: 0.6;font-family: 'Poppins', sans-serif;padding-left:2%;font-weight:lighter;text-transform:uppercase;font-size:14px;">Where taste meets the myth</span>
+                </div>
+
+                <hr style="margin-block-start: 0px;margin-block-end:0px;">
+
+                <div style="padding: 8%;">
+                    {% if cart.total == 0 %}
+                        <div style="display:flex;flex-direction:column;justify-content:space-evenly;padding:8%;text-align:center;">
+                    
+                            <div style="font-family: 'Poppins', sans-serif;padding-bottom:8%;">
+                                <h3 style="letter-spacing:2px;opacity:0.6;font-weight:bold;text-transform:uppercase">Cart Empty</h3>
+                            </div>
+                
+                            <div>
+                                <img src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_480/Cart_empty_-_menu_2x_ejjkf2" height="150px" width="200px">
+                            </div>
+        
+                            <div style="text-align: left;font-family: 'Fredoka One', cursive;font-weight:lighter;font-size:14px;padding:10%;opacity:0.6;padding-top:10%;">
+                                Good food is always cooking! <br>Go ahead, order some yummy items from the menu.
+                            </div>
+                
+                        </div>
+                    {% else %}
+                        {% if itemsperquantity %}
+                            {% for cartitem in itemsperquantity %}
+                            <div style="display: flex;flex-direction:row;margin-bottom:10%;">
+                                
+                                <div style="margin-right: 10px;display:inline-block;width:5%;">
+                                    {% if cartitem.item.diet == "veg" %}
+                                    <img src="{% static 'images/veg.png' %}" alt="" height="19px" width="19px">
+                                    {% else %}
+                                        <img src="{% static 'images/nonveg.jpg' %}" alt="" height="15px" width="15px">
+                                    {% endif %}
+                                </div>
+
+                                <div style="width: 50%;text-align:left;margin-left:0px;">
+                                    <span style="font-size:18px;font-family: 'Cabin', sans-serif;margin-top:4px;">{{cartitem.item.name}}</span>
+                                </div>
+    
+                                <div style="width:50%;text-align:center">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        
+                                        <!-- (-) icon -->
+                                        <form action="decrease/" method="post">
+    
+                                            {% csrf_token %}
+                                    
+                                            <input type="hidden" name="item" value="{{cartitem.item.name}}">
+    
+                                            <input type="hidden" name="action" value="remove">
+    
+                                            <button style="background-color: #e3f2fd;" type="submit" class="btn btn-light btn-sm">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                                </svg>
+                                            </button>
+                                        </form>
+                                        
+                                        <button type="button" style="background-color: rgb(250, 250, 250);width:40px" class="btn btn-light btn-sm" disabled style="cursor: pointer;">
+                                            <span style="color: green;">{{cartitem.quantity}}</span>
+                                        </button>
+    
+                                        <!-- + icon -->
+                                        <form action="increase/" method="post">
+    
+                                            {% csrf_token %}
+                                    
+                                            <input type="hidden" name="item" value="{{cartitem.item.name}}">
+    
+                                            <input type="hidden" name="action" value="add">
+    
+                                            <button type="submit" class="btn btn-light btn-sm" style="background-color: #e3f2fd;">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus" fill="green" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                                </svg>
+                                            </button>
+                                        </form>
+                                        
+                                    </div>
+                                </div>
+    
+                                <div style="width: 15%;text-align:center">
+                                    <span class="ruppee" style="font-size: 10px; opacity:0.6">₹{{cartitem.itemtotal}}</span>
+                                </div>
+                            </div><hr><br>
+                            {% endfor %}
+
+                            <div>
+                                <form action="promo/" method="POST">
+
+                                    <input style="height: 35px;width:180px;padding:2% 0% 2% 5%;caret-color:red;font-family: 'Poppins', sans-serif;text-transform:uppercase;font-size:19px;opacity:0.9;letter-spacing:2px;border:1px solid lightgrey;border-radius:5px;" type="text" name="code" id="" placeholder="Enter code..">
+    
+                                    <button id="promo" style="background: none;border:1px solid red;border-radius:4px;height:25px;margin-left:5%;text-transform:uppercase;font-family: 'Poppins', sans-serif;opacity:0.7;" type="submit">Apply Promo</button>
+                                </form>
+                            </div><br><hr>
+
+                            <div style="display: flex;flex-direction:row;justify-content:space-between;">
+                                <div>
+                                    <span>Subtotal</span><br>
+                                    <span style="font-size: 10px;opacity:0.6;font-family: 'Cabin', sans-serif;">Extra charges may apply</span>
+                                </div>
+                                <div>
+                                    <span style="font-family: 'Cabin', sans-serif;">₹{{cart.total}}</span>
+                                </div>
+                            </div><hr>
+                        {% else %}
+
+                        {% endif %}
+
+                        <div style="font-family: 'Montserrat', sans-serif;font-size:16px;color:red;opacity:0.7;font-weight:500;">
+                            Orders once placed cannot be cancelled and are non-refundable.
+                        </div>
+
+                        <br><br>
+
+                        <div style="text-align: center;opacity:0.95;">
+                            <form action="placeorder/">
+                                <button style="padding-left:26.5%;padding-top:2%;
+                                padding-bottom:2%;padding-right:26.5%;text-align:center;font-size:24px;text-transform:uppercase;" class="btn btn-group btn-danger" type="submit">
+                                    Place Order
+                                </button>
+                            </form>
+                        </div>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+{% endblock content %}
+
+{% block script %}
+
+    <script>
+        console.log($("#address")[0].innerText)
+    </script>
+
+{% endblock script %}

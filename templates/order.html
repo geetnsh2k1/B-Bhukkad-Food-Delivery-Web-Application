@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+    <h1>order page</h1>
+    {% if pendings %}
+        {% for pending in pendings %}
+            <p>{{pending.customer}}</p>
+            <p>{{pending.item.item.name}}</p>
+            <p>{{pending.item.quantity}}</p>
+            <p>{{pending.item.itemtotal}}</p>
+            {% if pending.status %}
+                approved...
+            {% else %}
+                pending...
+                <form action="accept/" method="post">
+                    <input type="hidden" name="customer" value="{{pending.customer}}">
+                    <input type="hidden" name="item" value="{{pending.item.item.name}}">
+                    <input type="hidden" name="restaurant" value="{{restaurant}}">
+                    <button type="submit">Accept</button>
+                </form>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        no new orders....
+    {% endif %}
+
+    <!-- history of orders -->
+    {% if history %}
+        <h1>Previous Orders</h1>
+        {% for h in history %}
+            <p>{{h.item}}</p>
+            <p>{{h.placed}}</p>
+        {% endfor %}
+    {% else %}  
+        no previous orders for your restaurant. 
+    {% endif %}
+
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}

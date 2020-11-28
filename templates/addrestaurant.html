@@ -53,13 +53,13 @@
     {% include 'navbar2.html' %}
     <div style="background-color:#e1e4e6fd;">
         <div style="padding-top: 3%; margin-left:5%;">
-            <div style="padding-bottom: 5px;">
+            <div style="padding-bottom: 2%;text-decoration:underline;">
                 <h2 style="font-family: 'Open Sans Condensed', sans-serif;font-size:42px;
                 font-weight:600;letter-spacing:4px;">Add<span style="padding-left: 20px;padding-right:20px;">a</span>Restaurant</h2>
             </div>
             <div style="display: flex; flex-direction:row; justify-content:space-between;">
                 <div style="border: 0px solid gray;border-radius:4px; background-color:#f3f3f3;
-                width:70%;padding-top:2%">
+                width:70%;padding-top:2%;margin-bottom:5%;">
                     <div class="main_form">
                         <div>
                             <h3 style="font-family: 'Ubuntu', sans-serif;padding-bottom:12px;color:rgb(71, 70, 70)">Owner Info</h3>
@@ -211,20 +211,39 @@
                                 <input type="file" name="image" id="image_file" accept=".jpg, .jpeg, .png" required style="border: none;padding-left:0px;">
 
                                 <!-- ADD BUTTON -->
-                                <button type="submit" class="btn btn-success">Add Restaurent</button>
-
+                                <div align="center">
+                                    <button type="submit" class="btn btn-success">Add Restaurent</button>
+                                </div>
                             </form>
                         </div>
                     </div>
                 </div>
-                <div style="margin-right: 3%;">
-                    <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
-                        <div class="card-header">Header</div>
+
+                <div>
+                    <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+                        <div class="card-header">How it works?</div>
                         <div class="card-body">
-                        <h5 class="card-title">Warning card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <h5 class="card-title">Step-1</h5>
+                        <p class="card-text">If you are the owner of the restaurant, let us know using this form.</p>
                     </div>
                 </div>
+                <div>
+                    <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
+                        <div class="card-header">How we manage?</div>
+                        <div class="card-body">
+                        <h5 class="card-title">Step-2</h5>
+                        <p class="card-text">Once you send the information to us, our awesome content team will verify it. </p>
+                    </div>
+                </div>
+                <div>
+                    <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+                        <div class="card-header">How good it is?</div>
+                        <div class="card-body">
+                        <h5 class="card-title">Step-3</h5>
+                        <p class="card-text">That's it! Once verified the restaurant will start appearing on Be Bhukkad.</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

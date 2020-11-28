@@ -4,8 +4,16 @@ from home import views
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('history/', views.history, name='history'),
+    path('order/', views.orderspage, name='order'),
+    path('order/accept/', views.acceptorder),
     path('location/<str:location>/', views.handlelocation, name='location'),
     path('location/<str:location>/<str:restaurant>', views.handlelocationrestaurant),
+    path('checkout/', views.checkout, name='checkout'),
+    path('checkout/increase/', views.increase),
+    path('checkout/decrease/', views.decrease),
+    path('checkout/promo/', views.promo),
+    path('checkout/placeorder/', views.placeorder),
     path('login/', views.handlelogin),
     re_path(r'[a-zA-Z0-9/!@#$%^&*]*logout[a-zA-Z0-9/!@#$%^&*]*', views.handlelogout),
     path('signup/', views.handlesignup),

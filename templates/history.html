@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+    <nav style="display: flex;flex-direction:row;justify-content:space-between;padding:0% 10% 0 10%;background-color:rgb(252, 252, 252)" class="navbar navbar-dark bg-dark;">
+        <div>
+            <a class="navbar-brand" href="/">
+                <img src="{% static 'images/foodIcon.png' %}" width="70" height="70" alt="" loading="lazy">
+            </a>
+        </div>
+        <div>
+            <h1 style="font-family: 'Fredoka One', cursive;letter-spacing:8px;font-size:48px;opacity:1;color:rgb(62, 146, 146)">B-BHUKKAD</h1>
+        </div>
+
+        <div>   
+            <img src="{% static 'images/pizzaicon.png' %}" alt="" height="40" width="40" style="margin-bottom: 5px;">
+            <span style="font-family: 'Nunito', sans-serif; font-size:20px;text-transform:uppercase;padding-left:5px;color:rgb(8, 27, 68);"><b>{{request.user.first_name}}</b></span>
+        </div>
+    </nav>
+
+    <div style="display: flex;flex-direction:row;justify-content:space-between;">
+
+        <div style="background-color: rgb(212, 204, 204);width:30%;padding:4%;">
+            <h2>Order history</h2> 
+            <div style="opacity: 0.8;">
+                {% if orders.count == 1 %}
+                    <i><p>Total Order {{orders.count}}</p></i>
+                {% else %}
+                    <i><p>Total Orders {{orders.count}}</p></i>
+                {% endif %}
+            </div>
+        </div>
+
+        <div style="background-color: slategrey;width:70%;padding:4%;">
+            {% if orders %}
+                {% for order in orders %}
+                    {{order.status}}
+                {% endfor %}
+            {% else %}
+                No orders
+            {% endif %}
+        </div>
+
+    </div>
+
+
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}

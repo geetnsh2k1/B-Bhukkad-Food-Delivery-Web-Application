@@ -34,7 +34,7 @@
                 <div style="height:180px;background: #00b5e9;width:20%;border:0px solid transparent;border-radius:3px;">
                     <div style="display: flex;flex-direction:row;justify-content:space-evenly;">
                         <div style="margin-left: 8%;margin-top:10%;">
-                            <h2 style="color:white;padding-bottom:0;margin-bottom:0;font-family: 'Raleway', sans-serif;">100512</h2>
+                            <h2 style="color:white;padding-bottom:0;margin-bottom:0;font-family: 'Raleway', sans-serif;">{{totalorders}}</h2>
                             <p style="color:white;font-family: 'Space Grotesk', sans-serif;opacity:0.8;font-size:24px;letter-spacing:2px;">total orders</p>
                         </div>
                         <div style="margin-top:38%;opacity:0.5;overflow:hidden;padding-right:10px;">
@@ -47,7 +47,7 @@
                 <div style="height:180px;background: #ff8300;width:20%;border:0px solid transparent;border-radius:3px;">
                     <div style="display: flex;flex-direction:row;justify-content:space-evenly;">
                         <div style="margin-left: 8%;margin-top:10%;">
-                            <h2 style="color:white;padding-bottom:0;margin-bottom:0;font-family: 'Raleway', sans-serif;">100512</h2>
+                            <h2 style="color:white;padding-bottom:0;margin-bottom:0;font-family: 'Raleway', sans-serif;">{{totalitems}}</h2>
                             <p style="color:white;font-family: 'Space Grotesk', sans-serif;opacity:0.8;font-size:24px;letter-spacing:2px;">items</p>
                         </div>
                         <div style="margin-top:38%;opacity:0.5;overflow:hidden;padding-right:10px;">
@@ -60,7 +60,7 @@
                 <div style="height:180px;background: #00b26f;width:20%;border:0px solid transparent;border-radius:3px;">
                     <div style="display: flex;flex-direction:row;justify-content:space-evenly;">
                         <div style="margin-left: 8%;margin-top:10%;">
-                            <h2 style="color:white;padding-bottom:0;margin-bottom:0;font-family: 'Raleway', sans-serif;">100512</h2>
+                            <h2 style="color:white;padding-bottom:0;margin-bottom:0;font-family: 'Raleway', sans-serif;">{{totalorders}}</h2>
                             <p style="color:white;font-family: 'Space Grotesk', sans-serif;opacity:0.8;font-size:24px;letter-spacing:2px;">orders successfull</p>
                         </div>
                         <div style="margin-top:38%;opacity:0.5;overflow:hidden;padding-right:10px;">
@@ -74,7 +74,7 @@
                     <div style="display: flex;flex-direction:row;justify-content:space-evenly;">
                         <div style="margin-left: 8%;margin-top:10%;">
                             <h2 style="font-family: 'Raleway', sans-serif;color:white;padding-bottom:0;margin-bottom:0">
-                                ₹10,052</h2>
+                                ₹{{earning}}</h2>
                             <p style="color:white;font-family: 'Space Grotesk', sans-serif;opacity:0.8;font-size:24px;letter-spacing:2px;">profit</p>
                         </div>
                         <div style="margin-top:40%;opacity:0.5;overflow:hidden;padding-right:0px;">
@@ -117,6 +117,18 @@
                                 <label for="price" style="font-family: 'Indie Flower', cursive;font-size:24px;color:#d7385e;font-weight:600;letter-spacing:2px;">Item Price</label>
 
                                 <input type="number" name="price" id="" class="form-control item"  step="any" placeholder="Price in Rs.only...." style="color: #790c5a;padding:5%;background-color:transparent;border:0px solid transparent;border-top:1.4px solid #e6739f;border-bottom:1.4px solid #e6739f;border-radius:0px;font-size:20px;font-family: 'Architects Daughter', cursive;" required>
+
+                            </div>
+
+                            <div class="form-group" style="padding-bottom: 5%;">
+
+                                <label for="itemCuisine" style="font-family: 'Indie Flower', cursive;font-size:24px;color:#d7385e;font-weight:600;letter-spacing:2px;">Item Diet</label>
+                                <br>
+
+                                <label style="font-size:20px;font-family: 'Architects Daughter', cursive;margin-left:10%" for="">Veg</label>
+                                <input type="radio" style="margin-right:30%;" name="diet" id="" value="veg">
+                                <label style="font-size:20px;font-family: 'Architects Daughter', cursive;" for="">Non-Veg</label>
+                                <input type="radio" name="diet" id="" value="nonveg">
 
                             </div>
 

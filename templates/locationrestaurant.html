@@ -26,13 +26,24 @@
         </form>
     </nav>
 
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert" style="text-align: center;letter-spacing:2px;">
+                <strong>{{message|slice:"0:10"}}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
     <div style="width: 100%;height:25px;background-color:#f7f7f7;padding-left:8%;">
         <a href="/" class="link" style="font-size: 14px;">Home</a><span style="opacity: 0.5;">/</span><a class="link" href="http://127.0.0.1:8000/location/{{restaurant.city|upper}}" style="font-size: 14px;">{{restaurant.city|title}}</a><span style="opacity: 0.5;">/</span><span style="font-size: 14px;opacity:0.9">{{restaurant.name}}</span>
     </div>
 
     <div style="background-color:rgb(24, 23, 23);color:white;width:100%;display:flex;flex-direction:row;justify-content:space-between;padding:2% 6% 2% 6%;">
         
-        <div id="reimage" style="border: 0.1px solid rgba(250, 240, 240,0.3);">
+        <div id="reimage" style="border: 0px solid rgba(250, 240, 240,0.3);">
             <abbr title="{{restaurant.name}}" style="cursor:pointer;">
                 <img id="rimage" style="padding:6%;transition: padding 1s, transform 1s;height:160px;width:260px" src="{{restaurant.image.url}}" alt="">
             </abbr>
@@ -65,11 +76,11 @@
 
         </div>
 
-        <div style="margin-top: 0px;">
+        <div style="margin-top: -10px;">
     
-            <div style="border: 1px solid rgba(255,255,255,0.5);position:relative;top:13px;padding:5% 0% 5% 5%;font-family: 'Satisfy', cursive;font-size:14.5px;letter-spacing:2px;opacity:0.8">
-                <img src="{% static 'images/discount.png' %}" alt="" height="20px" width="20px" style="background-color: white;border-radius:10px;"> 20% off | Use code new20<br>
-                <img src="{% static 'images/discount.png' %}" alt="" height="20px" width="20px" style="background-color: white;border-radius:10px;"> 30% off | Use code new30 <br>
+            <div style="border: 1px solid rgba(255,255,255,0.5);position:relative;top:12px;padding:4% 4% 4% 4%;font-family: 'Satisfy', cursive;font-size:14.5px;letter-spacing:2px;opacity:0.8;">
+                <img src="{% static 'images/discount.png' %}" alt="" height="20px" width="20px" style="background-color: white;border-radius:10px;"> Get 20% off on your order <br> Use code <b style="font-size: 20px;color:red;">welcome20</b><br>
+                <img src="{% static 'images/discount.png' %}" alt="" height="20px" width="20px" style="background-color: white;border-radius:10px;"> Get 30% off on your first order <br> Use code <b style="font-size: 20px;color:red;;">first30</b>  <br>
                 <!-- <img src="{% static 'images/discount.png' %}" alt="" height="20px" width="20px" style="background-color: white;border-radius:10px;"> 40% off | Use code new40  -->
             </div>
 
@@ -79,10 +90,196 @@
 
     </div>
 
+    <div style="width: 100%;display:flex;flex-direction:row;">
+
+        <div style="width:25%;background-color:white;text-align:left;height:100%;padding:5%">
+
+            <img src="{% static 'images/sideimage.jpg' %}" alt="" width="25%" style="width: 100%;opacity:0.99;margin-bottom:10%;">
+    
+            <img src="{% static 'images/sideimage2.jpg' %}" alt="" width="25%" style="width: 100%;opacity:1">
+
+        </div>
+
+        <div style="width: 50%;background-color:rgba(255,255,255,0.6);">
+           
+            <div style="padding:5%;font-family: 'Poppins', sans-serif;">
+                <h1 style="letter-spacing:2px;font-weight:bold;">Menu Items</h1>
+                <p style="opacity: 0.7;font-size:10px;font-weight:bold"><i>{{items.count}} ITEMS</i></p>
+            </div>
+            <br>
+            {% if items %}
+                {% for item in items %}
+                    <div style="padding:1% 5% 1% 5%;display:flex;flex-direction:row;justify-content:space-between;">
+                        
+                        <div>
+                            <h4 style="font-family: 'Questrial', sans-serif;font-weight:600;letter-spacing:1px">{{item.name}}
+                                {% if item.diet == "veg" %}
+                                    <img src="{% static 'images/veg.png' %}" alt="" height="25px" width="25px">
+                                {% else %}
+                                    <img src="{% static 'images/nonveg.jpg' %}" alt="" height="20px" width="20px">
+                                {% endif %}
+                            </h4>
+                            <p style="font-family: 'Cabin', sans-serif;opacity:0.6;font-size:13px;">₹{{item.price}}</p>
+                            <p style="font-family: 'Cinzel', serif;font-size:14px;">{{item.cuisine|upper}}</>
+                            <p style="font-family: 'Quicksand', sans-serif;font-size:16px;letter-spacing:0px;color:rgb(132, 131, 133);">{{item.description}}.</p>
+                        </div>
+
+                        <div>
+                            <img src="{{item.image.url}}" alt="" height="120px" width="160px" style="border-radius:5px;">  <br>
+
+                            <!-- add item form -->
+                            <div style="text-align: center;padding-top:5%;">
+                                
+                                <form action="" method="post">
+                                    {% csrf_token %}
+                                
+                                    <input type="hidden" name="item" value="{{item.name}}">
+
+                                    <input type="hidden" name="action" value="add">
+
+                                    <button style="padding-left:25px;padding-right:25px;" class="btn btn-group btn-outline-success add">ADD</button>
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <hr>
+                {% endfor %}
+            {% else %}
+            
+            {% endif %}
+
+        </div>
+
+        <div style="width: 25%;background-color:whitesmoke;height:100%;">
+
+            {% if cartitems %}
+
+                <!-- CART WITH ITEMS -->
+                <div style="padding:8%;">
+                    
+                    <div style="font-family: 'Poppins', sans-serif;padding-bottom:0%;">
+                        <h3 style="letter-spacing:2px;opacity:0.8;font-weight:bold;text-transform:uppercase">Cart</h3>
+                        <p style="opacity: 0.7;font-size:10px;font-weight:bold;margin-left:2%;">{{cartitems.count}}
+                            {% if cartitems.count == 1 %}
+                                ITEM
+                            {% else %}
+                                ITEMS
+                            {% endif %}</p>
+                    </div>
+                    
+                    
+                    {% for cartitem in cartitems %}
+                        <div style="display: flex;flex-direction:row;">
+                            <div style="width: 35%;text-align:left">
+                                <p style="font-size:16px;font-family: 'Cabin', sans-serif;margin-top:4px;">{{cartitem.item.name|slice:"0:10"}}..</p>
+                            </div>
+
+                            <div style="width:50%;text-align:center">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    
+                                    <!-- (-) icon -->
+                                    <form action="" method="post">
+
+                                        {% csrf_token %}
+                                
+                                        <input type="hidden" name="item" value="{{cartitem.item.name}}">
+
+                                        <input type="hidden" name="action" value="remove">
+
+                                        <button style="background-color: #e3f2fd;" type="submit" class="btn btn-light btn-sm">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                            </svg>
+                                        </button>
+                                    </form>
+                                    
+                                    <button type="button" style="background-color: rgb(250, 250, 250);width:40px" class="btn btn-light btn-sm" disabled style="cursor: pointer;">
+                                        <span style="color: green;">{{cartitem.quantity}}</span>
+                                    </button>
+
+                                    <!-- + icon -->
+                                    <form action="" method="post">
+
+                                        {% csrf_token %}
+                                
+                                        <input type="hidden" name="item" value="{{cartitem.item.name}}">
+
+                                        <input type="hidden" name="action" value="add">
+
+                                        <button type="submit" class="btn btn-light btn-sm" style="background-color: #e3f2fd;">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus" fill="green" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                            </svg>
+                                        </button>
+                                    </form>
+                                    
+                                </div>
+                            </div>
+
+                            <div style="width: 15%;text-align:center">
+                                <span class="ruppee" style="font-size: 10px; opacity:0.6">₹{{cartitem.itemtotal}}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    <hr>
+                    <div style="display: flex;flex-direction:row;justify-content:space-between;">
+                        <div>
+                            <span>Subtotal</span><br>
+                            <span style="font-size: 10px;opacity:0.6;font-family: 'Cabin', sans-serif;">Extra charges may apply</span>
+                        </div>
+                        <div>
+                            <span style="font-family: 'Cabin', sans-serif;">₹{{cart.total}}</span>
+                        </div>
+                    </div>
+
+                    <hr>
+                    <div style="text-align: center;">
+                        <form action="" method="post">
+                            <input type="hidden" name="action" value="checkout">
+                            <button type="submit" class="btn btn-success">CHECKOUT</button>
+                        </form>
+                    </div>
+
+                </div>
+
+            {% else %}
+
+                <!-- EMPTY CART -->
+                <div style="display:flex;flex-direction:column;justify-content:space-evenly;padding:8%;text-align:center;">
+                
+                    <div style="font-family: 'Poppins', sans-serif;padding-bottom:8%;">
+                        <h3 style="letter-spacing:2px;opacity:0.6;font-weight:bold;text-transform:uppercase">Cart Empty</h3>
+                    </div>
+        
+                    <div>
+                        <img src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_480/Cart_empty_-_menu_2x_ejjkf2" height="150px" width="200px">
+                    </div>
+
+                    <div style="text-align: left;font-family: 'Fredoka One', cursive;font-weight:lighter;font-size:14px;padding:10%;opacity:0.6;padding-top:10%;">
+                        Good food is always cooking! <br>Go ahead, order some yummy items from the menu.
+                    </div>
+        
+                </div>
+            
+            {% endif %}
+
+        </div>
+
+    </div> 
+
+
 {% endblock content %}
 
 {% block script %}
     <script>
+
+
+
         $("#rimage").mouseover(function(){
             $("#rimage").css("padding", "0")
         })

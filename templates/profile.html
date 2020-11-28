@@ -95,7 +95,7 @@
   {% if request.user.is_superuser %}
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light" style="margin-left: 25%;width:75%">
   {% else %}
-  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
   {% endif %}  
     <a class="navbar-brand" href="/"><img src="{% static 'images/FoodIcon.png' %}" alt="foodicon" width="55px" height="55px" style="margin-left:20px"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -111,7 +111,13 @@
         {% if request.user.is_superuser %}
             
         {% else %}
-            <span style="font-family: 'Bebas Neue', cursive; font-size:30px; letter-spacing:10px; padding-left:20px;color:rgb(90, 87, 87)">Welcome, Customer 🤗</span>
+            <span style="font-family: 'Bebas Neue', cursive; font-size:28px; letter-spacing:2px; padding-left:20px;color:rgb(90, 87, 87)">
+              {% if owner %}
+                Welcome, Restaurant-Owner 🤗
+              {% else %}
+                Welcome, Customer 🤗
+              {% endif %}
+            </span>
         {% endif %}
 
       </ul>

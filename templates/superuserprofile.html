@@ -102,7 +102,7 @@
         </div>
 
         <div style="margin-left:15%;">
-          <span id="customer_count" style="color:white; font-size:24px;display:inline">{{newrestaurants_count}}</span>
+          <span id="customer_count" style="color:white; font-size:24px;display:inline">{{orderscount}}</span>
           <p style="font-family: 'Space Grotesk', sans-serif;color:white;opacity:0.6;margin-bottom:2%;">total orders</p>
         </div>
 
@@ -183,11 +183,18 @@
           </button>
         </div>
 
-        <div id="addtask">
+
+        <div id="addtask" class="input-group mb-2" style="display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;">
           <form action="task/addtask/" method="POST">
-            <input type="text" name="task" id="">
-            <input type="time" name="time" id="">
-            <button type="submit">Add</button>
+            <div class="input-group mb-3">
+              <input style="padding: 5%;font-family: 'Architects Daughter', cursive;font-size:22px;" type="text" class="form-control" placeholder="Task title...." aria-label="Recipient's username" name="task" aria-describedby="button-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-outline-success" type="submit" id="button-addon2">ADD</button>
+              </div>
+            </div>
           </form>
         </div>
 
@@ -307,7 +314,7 @@
     </div>
 
     <div>
-      <div style="height:500px; width:80%;overflow-y:auto; background-color:#e4eb63;margin-left:10%;margin-right:10%;margin-bottom:5%;margin-top:3%;border:0px solid transparent;border-radius:10px;">
+      <div style="height:500px; width:80%;overflow-y:auto; background-color:#e4eb63;margin-left:10%;margin-right:10%;margin-bottom:5%;margin-top:3%;border:0px solid transparent;border-radius:10px;overflow-y:auto;">
         
         <div id="content" style="padding:8%;">
           
@@ -355,7 +362,7 @@
     </div>
 
     <div>
-      <div style="height:500px; width:80%; background-color:#e4eb63;margin-left:10%;margin-right:10%;margin-bottom:5%;margin-top:3%;border:0px solid transparent;border-radius:10px;">
+      <div style="height:500px; width:80%; background-color:#e4eb63;margin-left:10%;margin-right:10%;margin-bottom:5%;margin-top:3%;border:0px solid transparent;border-radius:10px;overflow-y:auto;">
         
         <div id="content" style="padding:8%;overflow-y:auto">
           
@@ -402,7 +409,7 @@
     </div>
 
     <div>
-      <div style="height:500px; width:80%; background-color:#e4eb63;margin-left:10%;margin-right:10%;margin-bottom:5%;margin-top:3%;border:0px solid transparent;border-radius:10px;">
+      <div style="height:500px; width:80%; background-color:#e4eb63;margin-left:10%;margin-right:10%;margin-bottom:5%;margin-top:3%;border:0px solid transparent;border-radius:10px;overflow-y:auto;">
         
         <div id="content" style="padding:8%;overflow-y:auto">
           
@@ -449,7 +456,7 @@
     </div>
 
     <div>
-      <div style="height:500px; width:80%; background-color:#e4eb63;margin-left:10%;margin-right:10%;margin-bottom:5%;margin-top:3%;border:0px solid transparent;border-radius:10px;">
+      <div style="height:500px; width:80%; background-color:#e4eb63;margin-left:10%;margin-right:10%;margin-bottom:5%;margin-top:3%;border:0px solid transparent;border-radius:10px;overflow-y:auto;">
         
         <div id="content" style="padding:8%;overflow-y:auto">
           {% if newrestaurants %}

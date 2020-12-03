@@ -23,7 +23,7 @@
 
     <div style="display: flex;flex-direction:row;justify-content:space-between;">
 
-        <div style="background-color: rgb(212, 204, 204);width:30%;padding:4%;">
+        <div style="background-color: rgb(238, 228, 228);width:30%;padding:4%;display:flex;flex-direction:column;;">
             <h2>Order history</h2> 
             <div style="opacity: 0.8;">
                 {% if orders.count == 1 %}
@@ -32,16 +32,47 @@
                     <i><p>Total Orders {{orders.count}}</p></i>
                 {% endif %}
             </div>
+
+            <div style="opacity: 1;">
+                <br><br><img src="{% static 'images/sideimage2.jpg' %}" alt="" width="100%">
+            </div>
+
         </div>
 
-        <div style="background-color: slategrey;width:70%;padding:4%;">
+        <div style="background-color: rgb(222, 233, 245);width:70%;padding:4%;">
+            <!-- <h1 style="padding-bottom: 2%;font-family: 'Poppins', sans-serif;letter-spacing:2px;">Orders Description</h1><br> -->
             {% if orders %}
                 {% for order in orders %}
-                    {{order.status}}
+
+                    <div>
+                        <span style="font-size: 16px;margin-right:1%;color:red">{{forloop.counter}})</span>
+                        <b style="font-family: 'Montserrat', sans-serif;font-size:25px;color:rgb(9, 32, 61)">{{order.item|upper}}</b> <span style="font-size: 25px;font-family: 'Cabin', sans-serif;"> - ₹{{order.total}}</span> 
+                        
+                        <div style="padding:2% 5%;font-size:18px;opacity:0.8;letter-spacing:2px;">
+                            <p style="font-family: 'Montserrat', sans-serif;text-transform:uppercase;padding:1%;">Live Updates</>
+                            
+                            <div style="padding:2% 3%;border:1px solid lightgrey;border-radius:5px;opacity:0.9;background-color:lightyellow">
+                                <b><span style="font-family: 'Cabin', sans-serif;">{{order.status|slice:"0:28"}}</span></b><br>
+                                <span style="font-family: 'Cabin', sans-serif;font-size:16px;">{{order.status|slice:"28:"}}</span>
+                            </div>
+                            
+                        </div>
+
+                    </div>
+                    <hr>
                 {% endfor %}
+
+                <div style="display: block;text-align:center">
+                    <br><br><img src="{% static 'images/horiimage.jpg' %}" alt="" width="80%" style="opacity: 0.98;">
+                </div>
+
             {% else %}
-                No orders
+                    <h1 style="color: crimson;text-align:center">NO ORDERS🙄</h1>
+                    <div style="display: block;text-align:center">
+                        <br><br><img src="{% static 'images/horiimage.jpg' %}" alt="" width="80%" style="opacity: 0.98;">
+                    </div>
             {% endif %}
+
         </div>
 
     </div>

@@ -34,12 +34,35 @@ def home(request):
             else:
                 pass
 
-            return render(request, 'home.html', {'count':count, 'restaurants':restaurants, 'location_json':location_json})
+            cartcount = ItemPerQuantity.objects.filter(customer=customer).count()
+            
+            try:
+                owner = Owner.objects.get(user=user)
+                return render(request, 'home.html', {'count':count, 'restaurants':restaurants, 'location_json':location_json, 'cartcount':cartcount, 'customer':customer, 'owner':owner})    
+            except:
+                pass
+            return render(request, 'home.html', {'count':count, 'restaurants':restaurants, 'location_json':location_json, 'cartcount':cartcount, 'customer':customer})
         else:
             pass
     except Exception as e:
         print(e, 'error')
     return render(request, 'home.html')
+
+def contact(request):
+    return render(request, 'contact.html')
+
+def about(request):
+    return render(request, 'about.html')
+
+def aboutdeveloper(request):
+    return render(request, 'aboutdeveloper.html')
+
+def feedback(request):
+    return render(request, 'feedback.html')
+
+def stopworking(request):
+    return render(request, 'stopworking.html')
+
 
 def handlelogin(request):
     if request.method == "POST":
@@ -161,12 +184,29 @@ def viewprofile(request):
             november_requests = Restaurant.objects.filter(opened__icontains='-11-', confirm=False).count()
             december_requests = Restaurant.objects.filter(opened__icontains='-12-', confirm=False).count()  
 
+            # ORDERS
+            january_orders = History.objects.filter(placed__icontains='-01-').count()
+            feb_orders = History.objects.filter(placed__icontains='-02-').count()
+            march_orders = History.objects.filter(placed__icontains='-03-').count()
+            april_orders = History.objects.filter(placed__icontains='-04-').count()
+            may_orders = History.objects.filter(placed__icontains='-05-').count()
+            june_orders = History.objects.filter(placed__icontains='-06-').count()
+            july_orders = History.objects.filter(placed__icontains='-07-').count()
+            august_orders = History.objects.filter(placed__icontains='-08-').count()
+            september_orders = History.objects.filter(placed__icontains='-09-').count()
+            october_orders = History.objects.filter(placed__icontains='-10-').count()
+            november_orders = History.objects.filter(placed__icontains='-11-').count()
+            december_orders = History.objects.filter(placed__icontains='-12-').count()
+            
             # TASKS          
             tasks = Task.objects.filter(user=user)
+            
+            orders_count = History.objects.all().count()
 
             return render(request, 'profile.html', {'customer':customer, 'count':count, 'newrestaurants':newrestaurants, 'newrestaurants_count':newrestaurants_count,
             'working_restaurants':working_restaurants, 'customers_count':customers_count,
-            'owners_count':owners_count, 'customers':customers, 'owners':owners, 'restaurants':restaurants, 'january_customers':january_customers, 'feb_customers':feb_customers, 'march_customers':march_customers, 'april_customers':april_customers, 'may_customers':may_customers, 'june_customers':june_customers, 'july_customers':july_customers, 'august_customers':august_customers, 'september_customers':september_customers, 'october_customers':october_customers, 'november_customers':november_customers,'december_customers':december_customers,'january_restaurants':january_restaurants, 'feb_restaurants':feb_restaurants, 'march_restaurants':march_restaurants, 'april_restaurants':april_restaurants, 'may_restaurants':may_restaurants, 'june_restaurants':june_restaurants, 'july_restaurants':july_restaurants, 'august_restaurants':august_restaurants, 'september_restaurants':september_restaurants, 'october_restaurants':october_restaurants,'november_restaurants':november_restaurants,'december_restaurants':december_restaurants, 'january_requests':january_requests, 'feb_requests':feb_requests,'march_requests':march_requests, 'april_requests':april_requests, 'may_requests':may_requests, 'june_requests':june_requests, 'july_requests':july_requests, 'august_requests':august_requests, 'september_requests':september_requests, 'october_requests':october_requests,'november_requests':november_requests, 'december_requests':december_requests, 'tasks':tasks})
+            'owners_count':owners_count, 'customers':customers, 'owners':owners, 'restaurants':restaurants, 'january_customers':january_customers, 'feb_customers':feb_customers, 'march_customers':march_customers, 'april_customers':april_customers, 'may_customers':may_customers, 'june_customers':june_customers, 'july_customers':july_customers, 'august_customers':august_customers, 'september_customers':september_customers, 'october_customers':october_customers, 'november_customers':november_customers,'december_customers':december_customers,'january_restaurants':january_restaurants, 'feb_restaurants':feb_restaurants, 'march_restaurants':march_restaurants, 'april_restaurants':april_restaurants, 'may_restaurants':may_restaurants, 'june_restaurants':june_restaurants, 'july_restaurants':july_restaurants, 'august_restaurants':august_restaurants, 'september_restaurants':september_restaurants, 'october_restaurants':october_restaurants,'november_restaurants':november_restaurants,'december_restaurants':december_restaurants, 'january_requests':january_requests, 'feb_requests':feb_requests,'march_requests':march_requests, 'april_requests':april_requests, 'may_requests':may_requests, 'june_requests':june_requests, 'july_requests':july_requests, 'august_requests':august_requests, 'september_requests':september_requests, 'october_requests':october_requests,'november_requests':november_requests, 'december_requests':december_requests, 'tasks':tasks, 'orderscount':orders_count,'january_orders':january_orders, 'feb_orders':feb_orders, 'march_orders':march_orders, 'april_orders':april_orders, 'may_orders':may_orders,
+            'june_orders':june_orders, 'july_orders':july_orders, 'august_orders':august_orders, 'september_orders':september_orders, 'october_orders':october_orders, 'november_orders':november_orders, 'december_orders':december_orders})
         else:
             try:
                 owner = Owner.objects.get(user=user)
@@ -209,7 +249,18 @@ def account(request):
         username = request.user.username
         user = User.objects.get(username=username)
         customer = Customer.objects.get(user=user) 
-        return render(request, 'account.html', {'customer':customer})
+        
+        status = False
+        
+        try:
+            owner = Owner.objects.get(user=user)
+            if owner or user.is_superuser:
+                status = True
+    
+        except:
+            pass
+        
+        return render(request, 'account.html', {'customer':customer, 'status':status})
     except Exception as e:
         print(e)
         messages.error(request, 'error while loading your profile')
@@ -466,6 +517,7 @@ def history(request):
         user = User.objects.get(username=username)
         customer = Customer.objects.get(user=user)
         orders = Order.objects.filter(customer=customer)
+        
         return render(request, 'history.html', {'orders':orders})
 
 def placeorder(request):
@@ -474,7 +526,7 @@ def placeorder(request):
         user = User.objects.get(username=username)
         customer = Customer.objects.get(user=user)
         cart = Cart.objects.get(customer=customer)
-
+        
         try:
             delivery = Delivery.objects.get(customer=customer)
             deliveryaddress = delivery.deliveryaddress
@@ -496,12 +548,16 @@ def placeorder(request):
         deliverytime = str(today[0:11]) +str(hour) + str(':') + str(minutes) + str(':') + str(today[17:19])
            
         total = cart.total
-        
-        neworder = Order.objects.create(customer=customer, cart=cart, deliveryaddress=deliveryaddress, total=total, deliverytime=deliverytime)
-        neworder.save()
 
         items = ItemPerQuantity.objects.filter(customer=customer)
+                
+        neworder = Order.objects.create(customer=customer, cart=cart, deliveryaddress=deliveryaddress, total=total, deliverytime=deliverytime)
+
+        itemlist = str('')
+        
         for item in items:
+            
+            itemlist += str(' & ') + str(item)
             
             restaurant = Restaurant.objects.get(name=item.item.restaurant.name)
             newpending = Pending.objects.create(restaurant=restaurant, customer=customer, item=item)
@@ -513,7 +569,10 @@ def placeorder(request):
             
             history = History.objects.create(restaurant=restaurant, item=str(item))
             history.save()
-            
+        
+        neworder.item = str(itemlist)
+        neworder.save()
+        
         cart.total = 0.0
         
         cart.save()
@@ -521,7 +580,7 @@ def placeorder(request):
         messages.success(request, 'Great your order has been successfully placed.')
         return redirect('history')
     except Exception as e:
-        print(e)
+        print(e, 'error')
         messages.error(request, 'something went wrong while placing your order.')
         return redirect('checkout')
 
@@ -635,25 +694,25 @@ def acceptorder(request):
             
             pending = Pending.objects.get(restaurant=restaurant, customer=customer, item=itemperquantity)
             
-            order = Order.objects.get(customer=customer)
+            order = Order.objects.filter(customer=customer)
             
             message = 'Your order for ' + str(itemperquantity) + str(' is approved and will soon be delivered to you.')
             
-            order.status += str(' ') + str(message)
+            order[len(order)-1].status += str(' ') + str(message)
              
             customerpending = Pending.objects.filter(customer=customer, status=False)
             print(len(customerpending))
             if len(customerpending) == 1:
-                order.approved = True
-                message = 'Order is successfully delivered at ' + str(order.deliverytime)
-                order.status += str(' ') + str(message)
+                order[len(order)-1].approved = True
+                message = 'Order is successfully delivered at ' + str(order[len(order)-1].deliverytime) +str('.')
+                order[len(order)-1].status += str(' ') + str(message)
                 tempcart = Cart.objects.get(customer=customer)
                 tempitems = ItemPerQuantity.objects.filter(customer=customer)
                 for item in tempitems:
                     tempcart.itemperquantity.remove(item)
                     item.delete()
                 tempcart.save() 
-            order.save()
+            order[len(order)-1].save()
             
             pending.status = True
             pending.save()

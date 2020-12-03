@@ -50,12 +50,27 @@
 {% endblock css %}
 
 {% block content %}
-    {% include 'navbar2.html' %}
+    
+    <nav style="display: flex;flex-direction:row;justify-content:space-between;padding:0% 10% 0 10%;background-color:rgb(252, 252, 252)" class="navbar navbar-dark bg-dark;">
+        <div>
+            <a class="navbar-brand" href="/">
+                <img src="{% static 'images/foodIcon.png' %}" width="70" height="70" alt="" loading="lazy">
+            </a>
+        </div>
+        <div>
+            <h1 style="font-family: 'Fredoka One', cursive;letter-spacing:8px;font-size:48px;opacity:1;color:rgb(62, 146, 146)">B-BHUKKAD</h1>
+        </div>
+
+        <div>   
+            <img src="{% static 'images/pizzaicon.png' %}" alt="" height="40" width="40" style="margin-bottom: 5px;">
+            <span style="font-family: 'Nunito', sans-serif; font-size:20px;text-transform:uppercase;padding-left:5px;color:rgb(8, 27, 68);"><b>{{request.user.first_name}}</b></span>
+        </div>
+    </nav>
+
     <div style="background-color:#e1e4e6fd;">
         <div style="padding-top: 3%; margin-left:5%;">
-            <div style="padding-bottom: 2%;text-decoration:underline;">
-                <h2 style="font-family: 'Open Sans Condensed', sans-serif;font-size:42px;
-                font-weight:600;letter-spacing:4px;">Add<span style="padding-left: 20px;padding-right:20px;">a</span>Restaurant</h2>
+            <div style="padding-bottom: 2%;text-decoration:none;">
+                <h2 style="font-family: 'Fredoka One', cursive;font-size:42px;letter-spacing:4px;color:rgb(223, 85, 43)">Add<span style="padding-left: 20px;padding-right:20px;">a</span>Restaurant</h2>
             </div>
             <div style="display: flex; flex-direction:row; justify-content:space-between;">
                 <div style="border: 0px solid gray;border-radius:4px; background-color:#f3f3f3;

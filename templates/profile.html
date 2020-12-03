@@ -739,10 +739,9 @@
       });
     }
 
-
-    january_requests = '{{january_requests}}'
-    feb_requests = '{{feb_requests}}'
-    march_requests = '{{march_requests}}'
+    january_requests = '{{january_orders}}'
+    feb_requests = '{{feb_orders}}'
+    march_requests = '{{marcorders}}'
     april_requests = '{{april_requests}}'
     may_requests = '{{may_requests}}'
     june_requests = '{{june_requests}}'
@@ -822,6 +821,19 @@
     }
 
     //ORDERS
+    january_orders = '{{january_orders}}'
+    feb_orders = '{{feb_orders}}'
+    march_orders = '{{march_orders}}'
+    april_orders = '{{april_orders}}'
+    may_orders = '{{may_orders}}'
+    june_orders = '{{june_orders}}'
+    july_orders = '{{july_orders}}'
+    august_orders = '{{august_orders}}'
+    september_orders = '{{september_orders}}'
+    october_orders = '{{october_orders}}'
+    november_orders = '{{november_orders}}'
+    december_orders = '{{december_orders}}'
+
     var cta = document.getElementById("orders");
     if (cta) {
       cta.height = 115;
@@ -831,8 +843,8 @@
           labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
           datasets: [
             {
-              label: "My First dataset",
-              data: [78, 81, 80, 65, 58, 75, 60, 75, 65, 60, 60, 75],
+              label: "Orders",
+              data: [january_orders, feb_orders, march_orders, april_orders, may_orders, june_orders, july_orders, august_orders, september_orders, october_orders, november_orders, december_orders],
               borderColor: "transparent",
               borderWidth: "0",
               backgroundColor: "rgba(255,255,255,.3)"
@@ -985,8 +997,6 @@
               hoverBorderWidth: 3
             }
           }
-
-
         }
       });
     }

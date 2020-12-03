@@ -62,7 +62,11 @@
             </div>
 
             <div class="bottom">
-                <span style="float: right;margin-right:20px"><strong><a href="viewprofile/" id="view_profile">RETURN TO PROFILE</a></strong></span>
+                {% if status %}
+                    <span style="float: right;margin-right:20px"><strong><a href="viewprofile/" id="view_profile">RETURN TO PROFILE</a></strong></span>
+                {% else %}
+                    <span style="float: right;margin-right:20px"><strong><a href="/" id="view_profile">RETURN TO HOME</a></strong></span>
+                {% endif %}
             </div>
 
         </div>

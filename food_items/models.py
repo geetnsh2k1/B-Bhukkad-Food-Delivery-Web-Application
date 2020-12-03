@@ -74,12 +74,13 @@ class Delivery(models.Model):
 
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='cust')
-    cart = models.OneToOneField(Cart, on_delete=models.CASCADE, default="")
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, default="")
     deliveryaddress = models.CharField(max_length=150)
+    item = models.CharField(max_length=200, null=True)
     total = models.FloatField()
     placed = models.DateTimeField(auto_now_add=True)
     deliverytime = models.CharField(max_length=100, blank=True)
-    status = models.TextField(default="Your order has been placed")
+    status = models.TextField(default="Your order has been placed.")
     approved = models.BooleanField(default=False)
     
     def __str__(self):

@@ -1,1 +1,0 @@
-B-Bhukkad, a Food Delivery Web Application. It is django based project, a quite famous python module for web development. For front hand development html, css and javascript is used and for the backend purpose python is used. I have used SQLite Database Management System in the project as it is lightweight and easy to manage.
